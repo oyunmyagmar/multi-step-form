@@ -1,11 +1,11 @@
 export function ImageForm({ form, onChange, onClickChangeStep }) {
   return (
-    <div className="w-120 border rounded-lg p-8">
+    <div className="w-120 bg-white  rounded-lg p-8">
       <img className="w-15 h-15" src="/logo.png"></img>
       <h3 className="mt-2 text-[26px] leading-[31px] text-[#202124] font-semibold">
         Join Us! 😎
       </h3>
-      <p className="mt-2 mb-[28px] text-lg leading-[22px] text-[#8E8E8E]">
+      <p className="mt-2 mb-7 text-lg leading-[22px] text-[#8E8E8E]">
         Please provide all current information accurately.
       </p>
 
@@ -14,62 +14,55 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
           Date of birth <span className="text-[#E14942]">*</span>
         </p>
         <input
-          className="w-104 h-11 border border-[#0CA5E9] rounded-lg p-3"
-          placeholder="--/--/--"
-          value={form.firstName}
+          className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          // placeholder="--/--/--"
+          type="date"
+          value={form.dateBirth}
           onChange={(el) =>
             onChange({
               ...form,
-              firstName: el.target.value,
+              dateBirth: el.target.value,
             })
           }
         ></input>
       </div>
 
-      <div className="mb-3">
-        <p className="text-sm leading-4 font-semibold text-slate-700 mb-2">
+      <div>
+        <p className="text-sm leading-4 font-semibold text-slate-700 mb-3">
           Profile image <span className="text-[#E14942]">*</span>
         </p>
 
         <input
-          className="w-104 h-11 border border-[#0CA5E9] rounded-lg p-3"
-          placeholder="Placeholder"
-          value={form.lastName}
+          className="w-full h-45 bg-[#7F7F800D] rounded-md p-[62px]"
+          type="file"
+          value={form.profileImg}
           onChange={(el) =>
             onChange({
               ...form,
-              lastName: el.target.value,
+              profileImg: el.target.value,
             })
           }
         ></input>
       </div>
 
-      <div className="mb-3">
-        <p className="text-sm leading-4 font-semibold text-slate-700 mb-2">
-          Username <span className="text-[#E14942]">*</span>
-        </p>
-        <input
-          className="w-104 h-11 border border-[#0CA5E9] rounded-lg p-3"
-          placeholder="Placeholder"
-          value={form.userName}
-          onChange={(el) =>
-            onChange({
-              ...form,
-              userName: el.target.value,
-            })
-          }
-        ></input>
+      <div className="flex gap-2 mt-[102px]">
+        <button
+          onClick={() => onClickChangeStep("password")}
+          className="w-32 text-base leading-6 text-[#202124] bg-white border border-slate-300 py-2.5 rounded-md
+          hover:bg-gray-100 transition-all duration-300"
+        >
+          <img src="/btn-left.png" className="w-6 h-6 inline-block mr-1"></img>
+          Back
+        </button>
+        <button
+          onClick={() => onClickChangeStep("completed")}
+          className="w-70 text-base leading-6 text-white bg-[#121316] py-2.5 rounded-md 
+          hover:opacity-80 transition-all duration-300"
+        >
+          Submit <span>3/3</span>
+          <img src="/btn-right.png" className="w-6 h-6 inline-block ml-1"></img>
+        </button>
       </div>
-
-      <button
-        onClick={() => onClickChangeStep("password")}
-        className="w-full text-base leading-6 text-white bg-[#121316] py-2.5 rounded-md mt-[162px]"
-      >
-        Continue <span>1</span>
-        <span>/</span>
-        <span>3</span>
-        <img src="/btn-right.png" className="w-6 h-6 inline-block"></img>
-      </button>
     </div>
   );
 }

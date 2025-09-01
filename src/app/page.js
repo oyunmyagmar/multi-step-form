@@ -1,9 +1,14 @@
 "use client";
 import { useState } from "react";
-import { BasicForm, PasswordForm, ImageForm } from "@/components";
+import {
+  BasicForm,
+  PasswordForm,
+  ImageForm,
+  CompletedForm,
+} from "@/components";
 
 const Home = () => {
-  const [step, setStep] = useState("basic"); // password, image, complete
+  const [step, setStep] = useState("basic"); // password, image, completed
 
   const [form, setForm] = useState({
     firstName: "",
@@ -13,6 +18,8 @@ const Home = () => {
     telNumber: "",
     password: "",
     confirmPass: "",
+    dateBirth: "",
+    profileImg: "",
   });
 
   // function submit() {
@@ -22,7 +29,7 @@ const Home = () => {
 
   if (step === "basic") {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
         <BasicForm
           form={form}
           onChange={setForm}
@@ -34,8 +41,7 @@ const Home = () => {
 
   if (step === "password") {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
-        {" "}
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
         <PasswordForm
           form={form}
           onChange={setForm}
@@ -47,12 +53,20 @@ const Home = () => {
 
   if (step === "image") {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
         <ImageForm
           form={form}
           onChange={setForm}
           onClickChangeStep={setStep}
         ></ImageForm>
+      </div>
+    );
+  }
+
+  if (step === "completed") {
+    return (
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
+        <CompletedForm></CompletedForm>
       </div>
     );
   }
