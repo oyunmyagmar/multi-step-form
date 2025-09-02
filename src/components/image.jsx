@@ -1,10 +1,30 @@
+import { useState } from "react";
+
 export function ImageForm({ form, onChange, onClickChangeStep }) {
+  const [errors, setErrors] = useState({});
+  const newErrors = {};
+
   function goToNextStep() {
-    const dateBirthRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(\d{4})$/;
+    const dateBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
     if (dateBirthRegex.test(form.dateBirth)) {
+      newErrors.dateBirth = null;
+    } else {
+      newErrors.dateBirth = "You must enter your birthday";
     }
 
-    onClickChangeStep("completed");
+    if (form.profileImg !== "") {
+      newErrors.profileImg = null;
+    } else {
+      newErrors.profileImg = "You must enter your profile picture";
+    }
+
+    setErrors(newErrors);
+
+    if (!newErrors.dateBirth && !newErrors.profileImg) {
+      onClickChangeStep("completed");
+    }
+
     // const dateBirthRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(\d{4})$/;
   }
   return (
@@ -23,7 +43,6 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
-          // placeholder="--/--/--"
           type="date"
           value={form.dateBirth}
           onChange={(el) =>
@@ -33,6 +52,11 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.dateBirth && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.dateBirth}
+          </div>
+        )}
       </div>
 
       <div>
@@ -51,6 +75,11 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.profileImg && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.profileImg}
+          </div>
+        )}
       </div>
 
       <div className="flex gap-2 mt-[102px]">

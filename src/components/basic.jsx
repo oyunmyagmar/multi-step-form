@@ -7,27 +7,19 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
     const newErrors = {};
 
     if (form.firstName === "") {
-      newErrors.firstName = "You must enter your first name";
+      newErrors.firstName = "Please enter your first name";
     } else {
       newErrors.firstName = null;
     }
 
-    if (!newErrors.firstName) {
-      if (!form.firstName.includes("@")) {
-        newErrors.firstName = "You must enter @";
-      } else {
-        newErrors.firstName = null;
-      }
-    }
-
     if (form.lastName === "") {
-      newErrors.lastName = "You must enter your last name";
+      newErrors.lastName = "Please enter your last name";
     } else {
       newErrors.lastName = null;
     }
 
     if (form.userName === "") {
-      newErrors.userName = "You must enter your user name";
+      newErrors.userName = "Please enter your user name";
     } else {
       newErrors.userName = null;
     }
@@ -79,7 +71,10 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
           Last name <span className="text-[#E14942]">*</span>
         </p>
         <input
-          className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          className={
+            "w-104 h-11 border border-[#CBD5E1] focus:border-[#0CA5E9] rounded-lg p-3" +
+            `${errors.firstName} && border-[#E14942] `
+          }
           type="text"
           placeholder="Your last name"
           value={form.lastName}
@@ -133,3 +128,11 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
     </div>
   );
 }
+
+// if (!newErrors.firstName) {
+//   if (!form.firstName.includes("@")) {
+//     newErrors.firstName = "You must enter @";
+//   } else {
+//     newErrors.firstName = null;
+//   }
+// }
