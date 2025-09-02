@@ -15,6 +15,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
         </p>
         <input
           className="w-full h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          type="text"
           placeholder="Your first name"
           value={form.firstName}
           onChange={(el) =>
@@ -32,6 +33,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          type="text"
           placeholder="Your last name"
           value={form.lastName}
           onChange={(el) =>
@@ -49,6 +51,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          type="text"
           placeholder="Your username"
           value={form.userName}
           onChange={(el) =>

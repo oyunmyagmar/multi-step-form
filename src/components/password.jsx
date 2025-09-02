@@ -32,6 +32,7 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          type="number"
           placeholder="Placeholder"
           value={form.telNumber}
           onChange={(el) =>
@@ -49,6 +50,7 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          type="password"
           placeholder="Placeholder"
           value={form.password}
           onChange={(el) =>
@@ -66,6 +68,7 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
+          type="password"
           placeholder="Placeholder"
           value={form.confirmPass}
           onChange={(el) =>
