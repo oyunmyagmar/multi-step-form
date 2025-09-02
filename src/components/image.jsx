@@ -45,7 +45,14 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
                 Date of birth <span className="text-[#E14942]">*</span>
               </p>
               <input
-                className="w-full h-11 border border-[#CBD5E1] focus:outline-[#0CA5E9] rounded-lg p-3"
+                className={
+                  "w-full h-11 text-base leading-5 placeholder-[#8B8E95] focus:text-[#121316] border focus:outline-[#0CA5E9] rounded-lg p-3 " +
+                  `${
+                    errors.dateBirth
+                      ? "border-[#E14942]"
+                      : "border-[#CBD5E1] text-[#121316]"
+                  }`
+                }
                 type="date"
                 value={form.dateBirth}
                 onChange={(el) =>

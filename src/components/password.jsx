@@ -17,6 +17,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
     } else {
       newErrors.email = "Enter a valid email address.";
     }
+    // console.log(newErrors.email, "emailerror");
 
     if (telNumberRegex.test(form.telNumber)) {
       newErrors.telNumber = null;
@@ -39,7 +40,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
     if (form.confirmPass === "") {
       newErrors.confirmPass = "This field is required.";
     } else if (form.confirmPass !== form.password) {
-      newErrors.confirmPass = "Password do not match. Please try again.";
+      newErrors.confirmPass = "Password does not match. Please try again.";
     } else {
       newErrors.confirmPass = null;
     }
@@ -75,7 +76,11 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
                 Email <span className="text-[#E14942]">*</span>
               </p>
               <input
-                className="w-full h-11 border border-[#CBD5E1] focus:outline-[#0CA5E9] rounded-lg p-3"
+                className={`w-full h-11 text-base leading-5 placeholder-[#8B8E95] focus:text-[#121316] border focus:outline-[#0CA5E9] rounded-lg p-3 + ${
+                  errors.email
+                    ? "border-[#E14942] text-[#E14942]"
+                    : "border-[#CBD5E1] text-[#121316]"
+                }`}
                 type="email"
                 placeholder="Email"
                 value={form.email}
@@ -98,7 +103,11 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
                 Phone number <span className="text-[#E14942]">*</span>
               </p>
               <input
-                className="w-full h-11 border border-[#CBD5E1] focus:outline-[#0CA5E9] rounded-lg p-3"
+                className={`w-full h-11 text-base leading-5 placeholder-[#8B8E95] focus:text-[#121316] border focus:outline-[#0CA5E9] rounded-lg p-3 + ${
+                  errors.telNumber
+                    ? "border-[#E14942] text-[#E14942]"
+                    : "border-[#CBD5E1] text-[#121316]"
+                }`}
                 type="tel"
                 placeholder="Mobile Number"
                 value={form.telNumber}
@@ -121,7 +130,11 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
                 Password <span className="text-[#E14942]">*</span>
               </p>
               <input
-                className="w-full h-11 border border-[#CBD5E1] focus:outline-[#0CA5E9] rounded-lg p-3"
+                className={`w-full h-11 text-base leading-5 placeholder-[#8B8E95] focus:text-[#121316] border focus:outline-[#0CA5E9] rounded-lg p-3 + ${
+                  errors.password
+                    ? "border-[#E14942] text-[#E14942]"
+                    : "border-[#CBD5E1] text-[#121316]"
+                }`}
                 type="password"
                 placeholder="Password"
                 value={form.password}
@@ -144,7 +157,11 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
                 Confirm password <span className="text-[#E14942]">*</span>
               </p>
               <input
-                className="w-full h-11 border border-[#CBD5E1] focus:outline-[#0CA5E9] rounded-lg p-3"
+                className={`w-full h-11 text-base leading-5 placeholder-[#8B8E95] focus:text-[#121316] border focus:outline-[#0CA5E9] rounded-lg p-3 + ${
+                  form.confirmPass !== form.password
+                    ? "border-[#E14942] text-[#E14942]"
+                    : "border-[#CBD5E1] text-[#121316]"
+                }`}
                 type="password"
                 placeholder="Confirm Password"
                 value={form.confirmPass}
