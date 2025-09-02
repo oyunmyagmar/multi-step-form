@@ -5,35 +5,45 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
+    const firstNameRegex =
+      /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
+    const lastNameRegex =
+      /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
+    const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
 
-    if (form.firstName === "") {
+    if (firstNameRegex.test(form.firstName)) {
+      newErrors.firstName = null;
+    } else if (form.firstName === "") {
       newErrors.firstName = "This field is required.";
     } else {
-      newErrors.firstName = null;
+      newErrors.firstName =
+        "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
     }
 
-    if (form.lastName === "") {
+    if (lastNameRegex.test(form.lastName)) {
+      newErrors.lastName = null;
+    } else if (form.lastName === "") {
       newErrors.lastName = "This field is required.";
     } else {
-      newErrors.lastName = null;
+      newErrors.lastName =
+        "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
     }
 
-    if (form.userName === "") {
+    if (usernameRegex.test(form.userName)) {
+      newErrors.userName = null;
+    } else if (form.userName === "") {
       newErrors.userName = "This field is required.";
     } else {
-      newErrors.userName = null;
+      newErrors.userName =
+        "Starts with a letter, length 3–20, only letters, numbers, underscores.";
     }
 
     setErrors(newErrors);
-
-    console.log("newErrors", newErrors);
 
     if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
       onClickChangeStep("password");
     }
   }
-
-  console.log("errors", errors);
 
   return (
     <div className="w-120 bg-white rounded-lg p-8">

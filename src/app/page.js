@@ -38,7 +38,7 @@ const Home = () => {
     );
     //    }
   }
-  console.log(form);
+  // console.log(form);
 
   if (step === "password") {
     return (

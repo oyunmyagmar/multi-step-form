@@ -5,7 +5,8 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
-    const dateBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const dateBirthRegex =
+      /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
     if (dateBirthRegex.test(form.dateBirth)) {
       newErrors.dateBirth = null;
@@ -104,7 +105,7 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
               className="w-70 text-base leading-6 text-white bg-[#121316] py-2.5 rounded-md hover:opacity-80 transition-all duration-300"
             >
               Continue
-              <span className="ml-1 after:content-['>'] after:ml-3">2/3</span>
+              <span className="ml-1 after:content-['>'] after:ml-3">3/3</span>
             </button>
           </div>
         </div>

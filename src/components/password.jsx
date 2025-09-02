@@ -5,8 +5,8 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const telNumberRegex = /^(8|9|7|6)\d{7}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const telNumberRegex = /^[789][0-9]{7}$/;
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
@@ -25,7 +25,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
       newErrors.telNumber = "This field is required.";
     } else {
       newErrors.telNumber =
-        "Enter a valid phone number (8 digits, no country code, no leading zero and no spaces).";
+        "Enter a valid phone number (8 digits, NO country code, NO leading zero, NO spaces).";
     }
 
     if (passwordRegex.test(form.password)) {
@@ -34,15 +34,18 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
       newErrors.password = "Create a password at least 6 characters long.";
     } else {
       newErrors.password =
-        "Password must include at least 1 capital letter, 1 lowercase letter, 1 number, and 1 special character in (!@#$%^&*).";
+        "Password must include at least 1 CAPITAL letter, 1 lowercase letter, 1 number, 1 special character in (!@#$%^&*).";
     }
 
     if (form.confirmPass === "") {
       newErrors.confirmPass = "This field is required.";
-    } else if (form.confirmPass !== form.password) {
-      newErrors.confirmPass = "Password does not match. Please try again.";
-    } else {
+    } else if (
+      form.confirmPass === form.password &&
+      passwordRegex.test(form.confirmPass)
+    ) {
       newErrors.confirmPass = null;
+    } else {
+      newErrors.confirmPass = "Password does not match. Please try again.";
     }
 
     setErrors(newErrors);
