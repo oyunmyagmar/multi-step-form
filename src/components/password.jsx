@@ -1,4 +1,49 @@
-export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
+import { useState } from "react";
+
+export function PasswordForm({ form, onChange, onClickChangeStep }) {
+  const [errors, setErrors] = useState({});
+
+  function goToNextStep() {
+    const newErrors = {};
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const telNumberRegex = /^(8|9|7|6)\d{7}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (emailRegex.test(form.email)) {
+      newErrors.email = null;
+    } else {
+      newErrors.email = "You must enter your email";
+    }
+
+    if (telNumberRegex.test(form.telNumber)) {
+      newErrors.telNumber = null;
+    } else {
+      newErrors.telNumber = "You must enter your phone number";
+    }
+
+    if (passwordRegex.test(form.password)) {
+      newErrors.password = null;
+    } else {
+      newErrors.password = "You must enter your password";
+    }
+
+    if (form.confirmPass === "" || form.confirmPass !== form.password) {
+      newErrors.confirmPass = "Your password did not match";
+    } else {
+      newErrors.confirmPass = null;
+    }
+
+    setErrors(newErrors);
+    if (
+      !newErrors.email &&
+      !newErrors.telNumber &&
+      !newErrors.password &&
+      !newErrors.confirmPass
+    ) {
+      onClickChangeStep("image");
+    }
+  }
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <img className="w-15 h-15" src="/logo.png"></img>
@@ -15,7 +60,8 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         </p>
         <input
           className="{className} w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
-          placeholder="Placeholder"
+          type="email"
+          placeholder="Your email"
           value={form.email}
           onChange={(el) =>
             onChange({
@@ -24,6 +70,11 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.email && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.email}
+          </div>
+        )}
       </div>
 
       <div className="mb-3">
@@ -32,8 +83,8 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         </p>
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
-          type="number"
-          placeholder="Placeholder"
+          type="tel"
+          placeholder="Your phone number"
           value={form.telNumber}
           onChange={(el) =>
             onChange({
@@ -42,6 +93,11 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.telNumber && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.telNumber}
+          </div>
+        )}
       </div>
 
       <div className="mb-3">
@@ -51,7 +107,7 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
           type="password"
-          placeholder="Placeholder"
+          placeholder="Your password"
           value={form.password}
           onChange={(el) =>
             onChange({
@@ -60,6 +116,11 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.password && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.password}
+          </div>
+        )}
       </div>
 
       <div>
@@ -69,7 +130,7 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
         <input
           className="w-104 h-11 border border-[#CBD5E1] outline-[#0CA5E9] rounded-lg p-3"
           type="password"
-          placeholder="Placeholder"
+          placeholder="Confirm password"
           value={form.confirmPass}
           onChange={(el) =>
             onChange({
@@ -78,6 +139,11 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.confirmPass && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.confirmPass}
+          </div>
+        )}
       </div>
 
       <div className="flex gap-2 mt-[82px]">
@@ -89,7 +155,7 @@ export function PasswordForm({ form, onChange, className, onClickChangeStep }) {
           Back
         </button>
         <button
-          onClick={() => onClickChangeStep("image")}
+          onClick={goToNextStep}
           className="w-70 text-base leading-6 text-white bg-[#121316] py-2.5 rounded-md 
           hover:opacity-80 transition-all duration-300"
         >

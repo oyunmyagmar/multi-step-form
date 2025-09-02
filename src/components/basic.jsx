@@ -1,4 +1,46 @@
+import { useState } from "react";
+
 export function BasicForm({ form, onChange, onClickChangeStep }) {
+  const [errors, setErrors] = useState({});
+
+  function goToNextStep() {
+    const newErrors = {};
+
+    if (form.firstName === "") {
+      newErrors.firstName = "You must enter your first name";
+    } else {
+      newErrors.firstName = null;
+    }
+
+    if (!newErrors.firstName) {
+      if (!form.firstName.includes("@")) {
+        newErrors.firstName = "You must enter @";
+      } else {
+        newErrors.firstName = null;
+      }
+    }
+
+    if (form.lastName === "") {
+      newErrors.lastName = "You must enter your last name";
+    } else {
+      newErrors.lastName = null;
+    }
+
+    if (form.userName === "") {
+      newErrors.userName = "You must enter your user name";
+    } else {
+      newErrors.userName = null;
+    }
+
+    setErrors(newErrors);
+    console.log("newErrors", newErrors);
+
+    if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
+      onClickChangeStep("password");
+    }
+  }
+
+  console.log("errors", errors);
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <img className="w-15 h-15" src="/logo.png"></img>
@@ -25,6 +67,11 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.firstName && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.firstName}
+          </div>
+        )}
       </div>
 
       <div className="mb-3">
@@ -43,6 +90,11 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.lastName && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.lastName}
+          </div>
+        )}
       </div>
 
       <div>
@@ -61,10 +113,15 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
             })
           }
         ></input>
+        {errors.userName && (
+          <div className="text-sm leading-5 text-[#E14942] mt-2">
+            {errors.userName}
+          </div>
+        )}
       </div>
 
       <button
-        onClick={() => onClickChangeStep("password")}
+        onClick={goToNextStep}
         className="w-full text-base leading-6 text-white bg-[#121316] py-2.5 rounded-md mt-[162px]
         hover:opacity-80 transition-all duration-300"
       >

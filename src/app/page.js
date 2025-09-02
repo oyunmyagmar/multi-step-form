@@ -21,7 +21,6 @@ const Home = () => {
     dateBirth: "",
     profileImg: "",
   });
-  console.log("form.firstname", typeof form.firstName);
   // function submit() {
   //   setStep("password");
   //   console.log(form);

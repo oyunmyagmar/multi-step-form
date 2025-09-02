@@ -1,4 +1,12 @@
 export function ImageForm({ form, onChange, onClickChangeStep }) {
+  function goToNextStep() {
+    const dateBirthRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(\d{4})$/;
+    if (dateBirthRegex.test(form.dateBirth)) {
+    }
+
+    onClickChangeStep("completed");
+    // const dateBirthRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(\d{4})$/;
+  }
   return (
     <div className="w-120 bg-white  rounded-lg p-8">
       <img className="w-15 h-15" src="/logo.png"></img>
@@ -55,7 +63,7 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
           Back
         </button>
         <button
-          onClick={() => onClickChangeStep("completed")}
+          onClick={goToNextStep}
           className="w-70 text-base leading-6 text-white bg-[#121316] py-2.5 rounded-md 
           hover:opacity-80 transition-all duration-300"
         >
