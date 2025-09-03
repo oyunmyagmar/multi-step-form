@@ -1,52 +1,59 @@
 import { useState } from "react";
 
+import { motion } from "motion/react";
+
 export function BasicForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
 
   function goToNextStep() {
-    const newErrors = {};
-    const firstNameRegex =
-      /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
-    const lastNameRegex =
-      /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
-    const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
+    // const newErrors = {};
+    // const firstNameRegex =
+    //   /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
+    // const lastNameRegex =
+    //   /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
+    // const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
 
-    if (firstNameRegex.test(form.firstName)) {
-      newErrors.firstName = null;
-    } else if (form.firstName === "") {
-      newErrors.firstName = "This field is required.";
-    } else {
-      newErrors.firstName =
-        "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
-    }
+    // if (firstNameRegex.test(form.firstName)) {
+    //   newErrors.firstName = null;
+    // } else if (form.firstName === "") {
+    //   newErrors.firstName = "This field is required.";
+    // } else {
+    //   newErrors.firstName =
+    //     "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
+    // }
 
-    if (lastNameRegex.test(form.lastName)) {
-      newErrors.lastName = null;
-    } else if (form.lastName === "") {
-      newErrors.lastName = "This field is required.";
-    } else {
-      newErrors.lastName =
-        "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
-    }
+    // if (lastNameRegex.test(form.lastName)) {
+    //   newErrors.lastName = null;
+    // } else if (form.lastName === "") {
+    //   newErrors.lastName = "This field is required.";
+    // } else {
+    //   newErrors.lastName =
+    //     "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
+    // }
 
-    if (usernameRegex.test(form.userName)) {
-      newErrors.userName = null;
-    } else if (form.userName === "") {
-      newErrors.userName = "This field is required.";
-    } else {
-      newErrors.userName =
-        "Starts with a letter, length 3–20, only letters, numbers, underscores.";
-    }
+    // if (usernameRegex.test(form.userName)) {
+    //   newErrors.userName = null;
+    // } else if (form.userName === "") {
+    //   newErrors.userName = "This field is required.";
+    // } else {
+    //   newErrors.userName =
+    //     "Starts with a letter, length 3–20, only letters, numbers, underscores.";
+    // }
 
-    setErrors(newErrors);
+    // setErrors(newErrors);
 
-    if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
-      onClickChangeStep("password");
-    }
+    // if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
+    onClickChangeStep("password");
+    //  }
   }
 
   return (
-    <div className="w-120 bg-white rounded-lg p-8">
+    <motion.div
+      className="w-120 bg-white rounded-lg p-8 relative"
+      initial={{ opacity: 0, right: -50 }}
+      animate={{ opacity: 1, right: 0 }}
+      exit={{ opacity: 1, right: 50 }}
+    >
       <div className="flex flex-col gap-7">
         <div className="flex flex-col gap-2">
           <img className="w-15 h-15" src="/logo.png"></img>
@@ -139,7 +146,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

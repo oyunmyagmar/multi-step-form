@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+
 export function CompletedForm() {
   return (
     <div className="w-120 bg-white rounded-lg p-8 flex flex-col gap-2">

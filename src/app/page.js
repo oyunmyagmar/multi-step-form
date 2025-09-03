@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { motion } from "motion/react";
+
 import {
   BasicForm,
   PasswordForm,
@@ -29,45 +31,50 @@ const Home = () => {
   if (step === "basic") {
     return (
       <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <BasicForm
-          form={form}
-          onChange={setForm}
-          onClickChangeStep={setStep}
-        ></BasicForm>
+        <BasicForm form={form} onChange={setForm} onClickChangeStep={setStep} />
       </div>
     );
-    //    }
   }
   // console.log(form);
 
   if (step === "password") {
     return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <PasswordForm
-          form={form}
-          onChange={setForm}
-          onClickChangeStep={setStep}
-        ></PasswordForm>
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center ">
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, right: -50 }}
+          animate={{ opacity: 1, right: 0 }}
+          exit={{ opacity: 1, right: 50 }}
+        >
+          <PasswordForm
+            form={form}
+            onChange={setForm}
+            onClickChangeStep={setStep}
+          />
+        </motion.div>
       </div>
     );
   }
 
   if (step === "image") {
     return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <ImageForm
-          form={form}
-          onChange={setForm}
-          onClickChangeStep={setStep}
-        ></ImageForm>
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center ">
+        <ImageForm form={form} onChange={setForm} onClickChangeStep={setStep} />
       </div>
     );
   }
 
   if (step === "completed") {
     return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <CompletedForm></CompletedForm>
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center ">
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, right: -50 }}
+          animate={{ opacity: 1, right: 0 }}
+          exit={{ opacity: 1, right: 50 }}
+        >
+          <CompletedForm />
+        </motion.div>
       </div>
     );
   }
