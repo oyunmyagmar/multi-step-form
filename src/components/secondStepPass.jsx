@@ -1,6 +1,33 @@
+import { useState } from "react";
 import { Header, InputField, Button } from "@/components";
 
-export function SecondStepPass({ form, onClickStep, onChangeForm }) {
+export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
+  const [errors, setErrors] = useState({});
+
+  function goToNextStep() {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(?:[89]\d{7}|1\d{7})$/;
+    const passwordRegex = "";
+    const confirmPassRegex = "";
+
+    if (emailRegex.test(form.email)) {
+      newErrors.email = null;
+    } else {
+      newErrors.email = "Enter a valid email address.";
+    }
+    if (phoneRegex.test(form.telNumber)) {
+      newErrors.telNumber = null;
+    } else {
+      newErrors.telNumber =
+        "Enter a valid phone number (8 digits, NO country code, NO leading zero, NO spaces).";
+    }
+    setErrors(newErrors);
+
+    if (!newErrors.email) {
+      onClickChangeStep("thirdStepImg");
+    }
+  }
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <Header />
@@ -12,6 +39,7 @@ export function SecondStepPass({ form, onClickStep, onChangeForm }) {
             type="email"
             value={form.email}
             onChange={(e) => onChangeForm({ ...form, email: e.target.value })}
+            error={errors.email}
           />
           <InputField
             title="Phone number"
@@ -21,6 +49,7 @@ export function SecondStepPass({ form, onClickStep, onChangeForm }) {
             onChange={(e) =>
               onChangeForm({ ...form, telNumber: e.target.value })
             }
+            error={errors.telNumber}
           />
           <InputField
             title="Password"
@@ -44,12 +73,9 @@ export function SecondStepPass({ form, onClickStep, onChangeForm }) {
         <div>
           <Button
             name="< Back"
-            onClick={() => onClickStep("firstStepBase")}
+            onClick={() => onClickChangeStep("firstStepBase")}
           ></Button>
-          <Button
-            name="Continue 2/3 >"
-            onClick={() => onClickStep("thirdStepImg")}
-          ></Button>
+          <Button name="Continue 2/3 >" onClick={goToNextStep}></Button>
         </div>
       </div>
     </div>

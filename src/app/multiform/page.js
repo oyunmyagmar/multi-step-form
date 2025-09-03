@@ -29,7 +29,7 @@ const HomeForm = () => {
         <FirstStepBase
           form={form}
           onChangeForm={setForm}
-          onClickStep={setStep}
+          onClickChangeStep={setStep}
         />
       </div>
     );
@@ -40,7 +40,7 @@ const HomeForm = () => {
         <SecondStepPass
           form={form}
           onChangeForm={setForm}
-          onClickStep={setStep}
+          onClickChangeStep={setStep}
         />
       </div>
     );
@@ -51,7 +51,7 @@ const HomeForm = () => {
         <ThirdStepImg
           form={form}
           onChangeForm={setForm}
-          onClickStep={setStep}
+          onClickChangeStep={setStep}
         />
       </div>
     );

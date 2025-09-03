@@ -1,4 +1,11 @@
-export function InputField({ title, placeholder, type, value, onChange }) {
+export function InputField({
+  title,
+  placeholder,
+  type,
+  value,
+  onChange,
+  error,
+}) {
   return (
     <div className="flex flex-col gap-2">
       <h5 className="text-sm leading-4 font-semibold text-[#334155]">
@@ -12,6 +19,7 @@ export function InputField({ title, placeholder, type, value, onChange }) {
         value={value}
         onChange={onChange}
       ></input>
+      {error && <div className="text-sm leading-5 text-[#E14942]">{error}</div>}
     </div>
   );
 }

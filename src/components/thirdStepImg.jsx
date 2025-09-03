@@ -1,6 +1,9 @@
 import { Header, InputField, Button } from "@/components";
 
-export function ThirdStepImg({ form, onChangeForm, onClickStep }) {
+export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
+  function goToNextStep() {
+    onClickChangeStep("lastStep");
+  }
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <Header />
@@ -27,12 +30,9 @@ export function ThirdStepImg({ form, onChangeForm, onClickStep }) {
         <div>
           <Button
             name="< Back"
-            onClick={() => onClickStep("secondStepPass")}
+            onClick={() => onClickChangeStep("secondStepPass")}
           ></Button>
-          <Button
-            name="Continue 3/3 >"
-            onClick={() => onClickStep("lastStep")}
-          ></Button>
+          <Button name="Continue 3/3 >" onClick={goToNextStep}></Button>
         </div>
       </div>
     </div>
