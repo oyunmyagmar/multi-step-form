@@ -4,3 +4,4 @@ export * from "./image";
 export * from "./complete";
 export * from "./header";
 export * from "./inputField";
+export * from "./button";

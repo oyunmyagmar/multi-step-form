@@ -6,8 +6,7 @@ export function InputField({ title, placeholder }) {
         <span className="text-[#E14942]"> *</span>
       </h5>
       <input
-        className="w-full border border-[#CBD5E1] 
-      rounded-lg placeholder-[#8B8E95] text-base leading-5 text-[#8B8E95] p-3"
+        className="w-full border border-[#CBD5E1] rounded-lg placeholder-[#8B8E95] text-base leading-5 text-[#121316] focus:outline-[#0CA5E9] p-3"
         placeholder={placeholder}
       ></input>
     </div>
