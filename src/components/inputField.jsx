@@ -1,4 +1,4 @@
-export function InputField({ title, placeholder }) {
+export function InputField({ title, placeholder, type, value, onChange }) {
   return (
     <div className="flex flex-col gap-2">
       <h5 className="text-sm leading-4 font-semibold text-[#334155]">
@@ -8,6 +8,9 @@ export function InputField({ title, placeholder }) {
       <input
         className="w-full border border-[#CBD5E1] rounded-lg placeholder-[#8B8E95] text-base leading-5 text-[#121316] focus:outline-[#0CA5E9] p-3"
         placeholder={placeholder}
+        type={type}
+        value={value}
+        onChange={onChange}
       ></input>
     </div>
   );
