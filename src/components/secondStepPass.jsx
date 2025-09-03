@@ -8,7 +8,8 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^(?:[89]\d{7}|1\d{7})$/;
-    const passwordRegex = "";
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
     const confirmPassRegex = "";
 
     if (emailRegex.test(form.email)) {
@@ -22,9 +23,16 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       newErrors.telNumber =
         "Enter a valid phone number (8 digits, NO country code, NO leading zero, NO spaces).";
     }
+    if (passwordRegex.test(form.password)) {
+      newErrors.password = null;
+    } else {
+      newErrors.password =
+        "Password must contain at least 1 CAPITAL letter, 1 lowercase letter, 1 number, 1 special character in (!@#$%^&*).";
+    }
+
     setErrors(newErrors);
 
-    if (!newErrors.email) {
+    if (!newErrors.email && !newErrors.telNumber && !newErrors.password) {
       onClickChangeStep("thirdStepImg");
     }
   }
@@ -59,6 +67,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
             onChange={(e) =>
               onChangeForm({ ...form, password: e.target.value })
             }
+            error={errors.password}
           />
           <InputField
             title="Confirm password"
