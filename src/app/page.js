@@ -23,10 +23,6 @@ const Home = () => {
     dateBirth: "",
     profileImg: "",
   });
-  // function submit() {
-  //   setStep("password");
-  //   console.log(form);
-  // }
 
   if (step === "basic") {
     return (
@@ -35,7 +31,6 @@ const Home = () => {
       </div>
     );
   }
-  // console.log(form);
 
   if (step === "password") {
     return (
