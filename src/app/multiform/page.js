@@ -2,7 +2,6 @@
 import { useState } from "react";
 import {
   Header,
-  InputField,
   Button,
   FirstStepBase,
   SecondStepPass,

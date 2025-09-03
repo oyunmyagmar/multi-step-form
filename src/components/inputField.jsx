@@ -13,7 +13,9 @@ export function InputField({
         <span className="text-[#E14942]"> *</span>
       </h5>
       <input
-        className="w-full border border-[#CBD5E1] rounded-lg placeholder-[#8B8E95] text-base leading-5 text-[#121316] focus:outline-[#0CA5E9] p-3"
+        className={`w-full border border-[#CBD5E1] rounded-lg placeholder-[#8B8E95] text-base leading-5 text-[#121316] focus:text-[#121316] focus:outline-[#0CA5E9] p-3 + ${
+          error ? "border-[#E14942] text-[#E14942]" : ""
+        }`}
         placeholder={placeholder}
         type={type}
         value={value}

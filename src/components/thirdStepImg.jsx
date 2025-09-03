@@ -1,13 +1,33 @@
+import { useState } from "react";
 import { Header, InputField, Button } from "@/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
+  const [errors, setErrors] = useState({});
   function goToNextStep() {
-    onClickChangeStep("lastStep");
+    const newErrors = {};
+    const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    if (dateOfBirthRegex.test(form.dateOfBirth)) {
+      newErrors.dateOfBirth = null;
+    } else if (form.dateOfBirth === "") {
+      newErrors.dateOfBirth = "Please select a date.";
+    } else {
+      newErrors.dateOfBirth = "Must be at least 16.";
+    }
+    {
+      form.profileImg
+        ? (newErrors.profileImg = null)
+        : (newErrors.profileImg = "Image cannot be blank.");
+    }
+    setErrors(newErrors);
+
+    if (!newErrors.dateOfBirth && !newErrors.profileImg) {
+      onClickChangeStep("lastStep");
+    }
   }
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <Header />
-      <div className="h-[434px] flex flex-col justify-between">
+      <div className="min-h-[462px] flex flex-col justify-between">
         <div className="flex flex-col gap-3 pt-7">
           <InputField
             title="Date of Birth"
@@ -16,8 +36,8 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
             onChange={(e) =>
               onChangeForm({ ...form, dateOfBirth: e.target.value })
             }
+            error={errors.dateOfBirth}
           />
-
           <InputField
             title="Profile image"
             type="file"
@@ -25,6 +45,7 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
             onChange={(e) =>
               onChangeForm({ ...form, profileImg: e.target.value })
             }
+            error={errors.profileImg}
           />
         </div>
         <div>
