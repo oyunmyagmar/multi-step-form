@@ -5,3 +5,6 @@ export * from "./complete";
 export * from "./header";
 export * from "./inputField";
 export * from "./button";
+export * from "./firstStepBase";
+export * from "./secondStepPass";
+export * from "./thirdStepImg";
