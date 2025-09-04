@@ -24,11 +24,18 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
       newErrors.dateOfBirth = "Must be at least 16.";
     }
 
+    // if (preview === "") {
+    //   newErrors.profileImg = "Image cannot be blank.";
+    // } else {
+    //   newErrors.profileImg = null;
+    // }
+
     if (form.profileImg === "") {
       newErrors.profileImg = "Image cannot be blank.";
     } else {
       newErrors.profileImg = null;
     }
+
     setErrors(newErrors);
 
     if (!newErrors.dateOfBirth && !newErrors.profileImg) {
@@ -55,7 +62,8 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
             variant="basicImg"
             title="Profile image"
             type="file"
-            value={form.profileImg}
+            // value={form.profileImg}
+            // value={preview}
             onChange={handleImgChange}
             multiple
             error={errors.profileImg}

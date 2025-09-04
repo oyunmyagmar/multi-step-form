@@ -9,7 +9,6 @@ export function Button({ name, variant, onClick }) {
     classes +=
       "bg-white text-[#202124] border border-[#CBD5E1] w-32 flex-none h-11";
   }
-
   return (
     <div>
       <button variant={variant} className={classes} onClick={onClick}>

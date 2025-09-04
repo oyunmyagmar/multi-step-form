@@ -16,25 +16,24 @@ export function InputField({
           {title}
           <span className="text-[#E14942]"> *</span>
         </h5>
-        <div className="w-full h-45 bg-[#7F7F800D] rounded-md flex justify-center items-center relative overflow-hidden">
-          {preview} ? (
-          <img
-            src={preview}
-            className="absolute inset-0 w-full h-full object-cover"
-          ></img>
+        <div className="w-full h-45 bg-[#7F7F800D] rounded-md text-sm leading-5 text-[#09090B] font-medium flex justify-center items-center relative overflow-hidden">
+          {preview ? (
+            <img
+              src={preview}
+              className="absolute inset-0 w-full h-full object-cover"
+            ></img>
           ) : (
-          <p className="text-sm leading-5 text-[#09090B] font-medium">
-            Browse or Drop Image
-          </p>
+            "Browse or Drop Image"
+          )}
           <input
-            className="absolute inset-0 opacity-0"
+            className="absolute inset-0 "
+            //  opacity-0"
             variant={variant}
             type={type}
-            value={value}
+            // value={value}
             onChange={onChange}
             multiple={multiple}
           ></input>
-          )
         </div>
         {error && (
           <div className="text-sm leading-5 text-[#E14942]">{error}</div>
