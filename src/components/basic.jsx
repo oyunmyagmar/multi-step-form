@@ -6,45 +6,47 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
 
   function goToNextStep() {
-    // const newErrors = {};
-    // const firstNameRegex =
-    //   /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
-    // const lastNameRegex =
-    //   /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
-    // const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
+    const newErrors = {};
+    const firstNameRegex =
+      /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
+    const lastNameRegex =
+      /^([A-Z][a-z]{1,49}(-[A-Z][a-z]{1,49})?|[А-ЯӨҮ][а-яөү]{1,49}(-[А-ЯӨҮ][а-яөү]{1,49})?)$/;
+    const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
 
-    // if (firstNameRegex.test(form.firstName)) {
-    //   newErrors.firstName = null;
-    // } else if (form.firstName === "") {
-    //   newErrors.firstName = "This field is required.";
-    // } else {
-    //   newErrors.firstName =
-    //     "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
-    // }
+    if (firstNameRegex.test(form.firstName)) {
+      newErrors.firstName = null;
+    } else if (form.firstName === "") {
+      newErrors.firstName = "This field is required.";
+    } else {
+      newErrors.firstName =
+        "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
+    }
 
-    // if (lastNameRegex.test(form.lastName)) {
-    //   newErrors.lastName = null;
-    // } else if (form.lastName === "") {
-    //   newErrors.lastName = "This field is required.";
-    // } else {
-    //   newErrors.lastName =
-    //     "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
-    // }
+    if (lastNameRegex.test(form.lastName)) {
+      newErrors.lastName = null;
+    } else if (form.lastName === "") {
+      newErrors.lastName = "This field is required.";
+    } else {
+      newErrors.lastName =
+        "Starts with a CAPITAL letter, letters only, hyphen optional, NO numbers, NO symbols, NO spaces.";
+    }
 
-    // if (usernameRegex.test(form.userName)) {
-    //   newErrors.userName = null;
-    // } else if (form.userName === "") {
-    //   newErrors.userName = "This field is required.";
-    // } else {
-    //   newErrors.userName =
-    //     "Starts with a letter, length 3–20, only letters, numbers, underscores.";
-    // }
+    if (usernameRegex.test(form.userName)) {
+      newErrors.userName = null;
+    } else if (form.userName === "") {
+      newErrors.userName = "This field is required.";
+    } else {
+      newErrors.userName =
+        "Starts with a letter, length 3–20, only letters, numbers, underscores.";
+    }
 
-    // setErrors(newErrors);
+    setErrors(newErrors);
 
-    // if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
-    onClickChangeStep("password");
-    //  }
+    if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
+      localStorage.setItem("my-form", JSON.stringify(form));
+
+      onClickChangeStep("password");
+    }
   }
 
   return (

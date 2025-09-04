@@ -20,27 +20,29 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
   // }
 
   function goToNextStep() {
-    // const newErrors = {};
-    // const dateBirthRegex =
-    //   /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const newErrors = {};
+    const dateBirthRegex =
+      /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-    // if (dateBirthRegex.test(form.dateBirth)) {
-    //   newErrors.dateBirth = null;
-    // } else {
-    //   newErrors.dateBirth = "Please select a date.";
-    // }
+    if (dateBirthRegex.test(form.dateBirth)) {
+      newErrors.dateBirth = null;
+    } else {
+      newErrors.dateBirth = "Please select a date.";
+    }
 
-    // if (form.profileImg !== "") {
-    //   newErrors.profileImg = null;
-    // } else {
-    //   newErrors.profileImg = "Image cannot be blank.";
-    // }
+    if (form.profileImg === "") {
+      newErrors.profileImg = "Image cannot be blank.";
+    } else {
+      newErrors.profileImg = null;
+    }
 
-    // setErrors(newErrors);
+    setErrors(newErrors);
 
-    // if (!newErrors.dateBirth && !newErrors.profileImg) {
-    onClickChangeStep("completed");
-    //  }
+    if (!newErrors.dateBirth && !newErrors.profileImg) {
+      localStorage.setItem("my-form", JSON.stringify(form));
+
+      onClickChangeStep("completed");
+    }
   }
   return (
     <motion.div
@@ -105,7 +107,10 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
                     />
                     <button
                       className="w-6 h-6 bg-[#202124] text-white text-[7px] p-[2.5px] rounded-full absolute top-4 right-4 z-auto"
-                      onClick={(e) => setPreview(null)}
+                      onClick={(e) => {
+                        setPreview(null);
+                        document.getElementById("imageFile").value = null;
+                      }}
                     >
                       X
                     </button>
@@ -117,6 +122,7 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
                   className={
                     "absolute inset-0 opacity-0 " + `${preview && "inset-30"}`
                   }
+                  id="imageFile"
                   type="file"
                   onChange={handleOnChangeImg}
                   multiple

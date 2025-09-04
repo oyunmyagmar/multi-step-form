@@ -13,14 +13,17 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
     } else {
       newErrors.dateOfBirth = "Must be at least 16.";
     }
-    {
-      form.profileImg
-        ? (newErrors.profileImg = null)
-        : (newErrors.profileImg = "Image cannot be blank.");
+    if (form.profileImg === "") {
+      newErrors.profileImg = "Image cannot be blank.";
+    } else {
+      newErrors.profileImg = null;
     }
+
     setErrors(newErrors);
 
     if (!newErrors.dateOfBirth && !newErrors.profileImg) {
+      localStorage.setItem("my-form", JSON.stringify(form));
+
       onClickChangeStep("lastStep");
     }
   }
@@ -41,19 +44,24 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
           <InputField
             title="Profile image"
             type="file"
-            value={form.profileImg}
             onChange={(e) =>
               onChangeForm({ ...form, profileImg: e.target.value })
             }
             error={errors.profileImg}
+            variant="basicImg"
           />
         </div>
-        <div>
+        <div className="flex gap-2">
           <Button
             name="< Back"
+            variant="secondary"
             onClick={() => onClickChangeStep("secondStepPass")}
           ></Button>
-          <Button name="Continue 3/3 >" onClick={goToNextStep}></Button>
+          <Button
+            name="Continue 3/3 >"
+            variant="primary"
+            onClick={goToNextStep}
+          ></Button>
         </div>
       </div>
     </div>

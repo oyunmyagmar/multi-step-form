@@ -37,6 +37,8 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
     console.log(newErrors);
 
     if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
+      localStorage.setItem("my-form", JSON.stringify(form));
+
       onClickChangeStep("secondStepPass");
     }
   }
@@ -76,7 +78,11 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
             error={errors.userName}
           />
         </div>
-        <Button name="Continue 1/3 >" onClick={goToNextStep}></Button>
+        <Button
+          name="Continue 1/3 >"
+          variant="primary"
+          onClick={goToNextStep}
+        ></Button>
       </div>
     </div>
   );

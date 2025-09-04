@@ -12,17 +12,23 @@ import {
 const Home = () => {
   const [step, setStep] = useState("basic"); // password, image, completed
 
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    telNumber: "",
-    password: "",
-    confirmPass: "",
-    dateBirth: "",
-    profileImg: "",
-  });
+  const localMyForm = localStorage.getItem("my-form");
+
+  const [form, setForm] = useState(
+    localMyForm
+      ? JSON.parse(localMyForm)
+      : {
+          firstName: "",
+          lastName: "",
+          userName: "",
+          email: "",
+          telNumber: "",
+          password: "",
+          confirmPass: "",
+          dateBirth: "",
+          profileImg: "",
+        }
+  );
 
   if (step === "basic") {
     return (
