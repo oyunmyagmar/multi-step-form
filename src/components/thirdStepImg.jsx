@@ -3,9 +3,13 @@ import { Header, InputField, Button } from "@/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
+
+  function handleOnChangeImg(event) {}
+
   function goToNextStep() {
     const newErrors = {};
     const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
     if (dateOfBirthRegex.test(form.dateOfBirth)) {
       newErrors.dateOfBirth = null;
     } else if (form.dateOfBirth === "") {
@@ -13,16 +17,16 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
     } else {
       newErrors.dateOfBirth = "Must be at least 16.";
     }
+
     if (form.profileImg === "") {
       newErrors.profileImg = "Image cannot be blank.";
     } else {
       newErrors.profileImg = null;
     }
-
     setErrors(newErrors);
 
     if (!newErrors.dateOfBirth && !newErrors.profileImg) {
-      localStorage.setItem("my-form", JSON.stringify(form));
+      // localStorage.setItem("my-form", JSON.stringify(form));
 
       onClickChangeStep("lastStep");
     }
@@ -44,9 +48,7 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
           <InputField
             title="Profile image"
             type="file"
-            onChange={(e) =>
-              onChangeForm({ ...form, profileImg: e.target.value })
-            }
+            onChange={handleOnChangeImg}
             error={errors.profileImg}
             variant="basicImg"
           />
