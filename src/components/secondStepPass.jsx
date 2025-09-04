@@ -51,7 +51,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       !newErrors.password &&
       !newErrors.confirmPass
     ) {
-      localStorage.setItem("my-form", JSON.stringify(form));
+      // localStorage.setItem("my-form", JSON.stringify(form));
 
       onClickChangeStep("thirdStepImg");
     }
@@ -102,13 +102,13 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
         </div>
         <div className="flex gap-2">
           <Button
-            name="< Back"
             variant="secondary"
+            name="< Back"
             onClick={() => onClickChangeStep("firstStepBase")}
           ></Button>
           <Button
-            name="Continue 2/3 >"
             variant="primary"
+            name="Continue 2/3 >"
             onClick={goToNextStep}
           ></Button>
         </div>

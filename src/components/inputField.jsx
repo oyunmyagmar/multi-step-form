@@ -1,11 +1,13 @@
 export function InputField({
+  variant,
   title,
   placeholder,
   type,
   value,
   onChange,
   error,
-  variant,
+  multiple,
+  preview,
 }) {
   if (variant === "basicImg") {
     return (
@@ -14,11 +16,25 @@ export function InputField({
           {title}
           <span className="text-[#E14942]"> *</span>
         </h5>
-        <div className="w-full h-45 bg-[#7F7F800D] rounded-md">
+        <div className="w-full h-45 bg-[#7F7F800D] rounded-md flex justify-center items-center relative overflow-hidden">
+          {preview} ? (
+          <img
+            src={preview}
+            className="absolute inset-0 w-full h-full object-cover"
+          ></img>
+          ) : (
           <p className="text-sm leading-5 text-[#09090B] font-medium">
-            Add image
+            Browse or Drop Image
           </p>
-          <input type={type} onChange={onChange} variant={variant}></input>
+          <input
+            className="absolute inset-0 opacity-0"
+            variant={variant}
+            type={type}
+            value={value}
+            onChange={onChange}
+            multiple={multiple}
+          ></input>
+          )
         </div>
         {error && (
           <div className="text-sm leading-5 text-[#E14942]">{error}</div>

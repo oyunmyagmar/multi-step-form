@@ -11,22 +11,23 @@ import {
 const HomeForm = () => {
   const [step, setStep] = useState("firstStepBase"); // secondStepPass, thirdStepImg, lastStep
 
-  const localMyForm = localStorage.getItem("my-form");
+  // const localMyForm = localStorage.getItem("my-form");
 
   const [form, setForm] = useState(
-    localStorage
-      ? JSON.parse(localMyForm)
-      : {
-          firstName: "",
-          lastName: "",
-          userName: "",
-          email: "",
-          telNumber: "",
-          password: "",
-          confirmPass: "",
-          dateOfBirth: "",
-          profileImg: "",
-        }
+    // localStorage
+    //   ? JSON.parse(localMyForm)
+    //   :
+    {
+      firstName: "",
+      lastName: "",
+      userName: "",
+      email: "",
+      telNumber: "",
+      password: "",
+      confirmPass: "",
+      dateOfBirth: "",
+      profileImg: "",
+    }
   );
   if (step === "firstStepBase") {
     return (

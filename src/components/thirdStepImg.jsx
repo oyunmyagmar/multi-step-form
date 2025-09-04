@@ -3,8 +3,14 @@ import { Header, InputField, Button } from "@/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
+  const [preview, setPreview] = useState();
 
-  function handleOnChangeImg(event) {}
+  function handleImgChange(event) {
+    const file = event.target.files[0];
+    const filePreview = URL.createObjectURL(file);
+    setPreview(filePreview);
+    console.log(preview);
+  }
 
   function goToNextStep() {
     const newErrors = {};
@@ -46,22 +52,25 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
             error={errors.dateOfBirth}
           />
           <InputField
+            variant="basicImg"
             title="Profile image"
             type="file"
-            onChange={handleOnChangeImg}
+            value={form.profileImg}
+            onChange={handleImgChange}
+            multiple
             error={errors.profileImg}
-            variant="basicImg"
+            preview={preview}
           />
         </div>
         <div className="flex gap-2">
           <Button
-            name="< Back"
             variant="secondary"
+            name="< Back"
             onClick={() => onClickChangeStep("secondStepPass")}
           ></Button>
           <Button
-            name="Continue 3/3 >"
             variant="primary"
+            name="Continue 3/3 >"
             onClick={goToNextStep}
           ></Button>
         </div>

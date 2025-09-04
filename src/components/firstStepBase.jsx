@@ -79,8 +79,8 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
           />
         </div>
         <Button
+          variant="initial"
           name="Continue 1/3 >"
-          variant="primary"
           onClick={goToNextStep}
         ></Button>
       </div>
