@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Header,
   Button,
@@ -11,24 +11,25 @@ import {
 const HomeForm = () => {
   const [step, setStep] = useState("firstStepBase"); // secondStepPass, thirdStepImg, lastStep
 
-  // const localMyForm = localStorage.getItem("my-form");
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    telNumber: "",
+    password: "",
+    confirmPass: "",
+    dateOfBirth: "",
+    preview: "",
+  });
 
-  const [form, setForm] = useState(
-    // localStorage
-    //   ? JSON.parse(localMyForm)
-    //   :
-    {
-      firstName: "",
-      lastName: "",
-      userName: "",
-      email: "",
-      telNumber: "",
-      password: "",
-      confirmPass: "",
-      dateOfBirth: "",
-      preview: "",
+  useEffect(() => {
+    const localMyForm = localStorage.getItem("my-form");
+    if (localMyForm) {
+      setForm(JSON.parse(localMyForm));
     }
-  );
+  }, []);
+
   if (step === "firstStepBase") {
     return (
       <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">

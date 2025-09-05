@@ -1,8 +1,57 @@
 import { Header, InputField, Button } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const newErrors = {};
+
+    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    if (firstNameRegex.test(form.firstName)) {
+      newErrors.firstName = null;
+    } else if (form.firstName === "") {
+      newErrors.firstName = "This field is required.";
+    } else {
+      newErrors.firstName =
+        "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.firstName]);
+
+  useEffect(() => {
+    const newErrors = {};
+
+    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    if (firstNameRegex.test(form.lastName)) {
+      newErrors.lastName = null;
+    } else if (form.lastName === "") {
+      newErrors.lastName = "This field is required.";
+    } else {
+      newErrors.lastName =
+        "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.lastName]);
+
+  useEffect(() => {
+    const newErrors = {};
+    console.log(form.userName, "form.username");
+    const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
+    if (userNameRegex.test(form.userName)) {
+      newErrors.userName = null;
+    } else if (form.userName.length === 0) {
+      newErrors.userName = "This field is required.";
+    } else {
+      newErrors.userName =
+        "Start with a letter, length 3–20, only letters, numbers, dot, underscore, and hyphen allowed.";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.userName]);
+
   function goToNextStep() {
     const newErrors = {};
 
@@ -25,7 +74,7 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
 
-    const userNameRegex = /^(?=.{3,20}$)[a-zA-Z][a-zA-Z0-9._-]*$/;
+    const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
     if (userNameRegex.test(form.userName)) {
       newErrors.userName = null;
     } else if (form.userName === "") {

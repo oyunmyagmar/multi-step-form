@@ -8,6 +8,21 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
   useEffect(() => {
     const newErrors = {};
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(form.email)) {
+      newErrors.email = null;
+    } else if (form.email === "") {
+      newErrors.email = "This field is required.";
+    } else {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.email]);
+
+  useEffect(() => {
+    const newErrors = {};
+
     const telNumberRegex = /^[789][0-9]{7}$/;
     if (telNumberRegex.test(form.telNumber)) {
       newErrors.telNumber = null;
@@ -17,7 +32,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
       newErrors.telNumber =
         "Enter a valid phone number (8 digits, NO country code, NO leading zero, NO spaces).";
     }
-    setErrors(newErrors);
+    setErrors({ ...errors, ...newErrors });
   }, [form.telNumber]);
 
   useEffect(() => {
@@ -35,8 +50,27 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
         "Password must include at least 1 CAPITAL letter, 1 lowercase letter, 1 number, 1 special character in (!@#$%^&*).";
     }
 
-    setErrors(newErrors);
+    setErrors({ ...errors, ...newErrors });
   }, [form.password]);
+
+  useEffect(() => {
+    const newErrors = {};
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    if (form.confirmPass === "") {
+      newErrors.confirmPass = "This field is required.";
+    } else if (
+      form.confirmPass === form.password &&
+      passwordRegex.test(form.confirmPass)
+    ) {
+      newErrors.confirmPass = null;
+    } else {
+      newErrors.confirmPass = "Password does not match. Please try again.";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.confirmPass]);
 
   function goToNextStep() {
     const newErrors = {};

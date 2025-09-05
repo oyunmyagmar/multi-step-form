@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { motion } from "motion/react";
 import { pre } from "motion/react-client";
@@ -6,6 +6,31 @@ import { pre } from "motion/react-client";
 export function ImageForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState("");
+
+  useEffect(() => {
+    const newErrors = {};
+
+    const dateBirthRegex =
+      /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    if (dateBirthRegex.test(form.dateBirth)) {
+      newErrors.dateBirth = null;
+    } else {
+      newErrors.dateBirth = "Please select a date.";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.dateBirth]);
+
+  useEffect(() => {
+    const newErrors = {};
+    if (preview === "") {
+      newErrors.preview = "Image cannot be blank.";
+    } else {
+      newErrors.preview = null;
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [preview]);
 
   function handleOnChangeImg(event) {
     // alert(1);
@@ -16,9 +41,9 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
+
     const dateBirthRegex =
       /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-
     if (dateBirthRegex.test(form.dateBirth)) {
       newErrors.dateBirth = null;
     } else {

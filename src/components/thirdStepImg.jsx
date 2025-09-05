@@ -1,10 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header, InputField, Button } from "@/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState("");
-  console.log(preview, "prev");
+  // console.log(preview, "prev");
+
+  useEffect(() => {
+    const newErrors = {};
+
+    const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    if (dateOfBirthRegex.test(form.dateOfBirth)) {
+      newErrors.dateOfBirth = null;
+    } else if (form.dateOfBirth === "") {
+      newErrors.dateOfBirth = "Please select a date.";
+    } else {
+      newErrors.dateOfBirth = "Must be at least 16.";
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [form.dateOfBirth]);
+
+  useEffect(() => {
+    const newErrors = {};
+
+    if (preview === "") {
+      newErrors.preview = "Image cannot be blank.";
+    } else {
+      newErrors.preview = null;
+    }
+
+    setErrors({ ...errors, ...newErrors });
+  }, [preview]);
 
   function handleImgChange(event) {
     const file = event.target.files[0];
