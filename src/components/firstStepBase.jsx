@@ -1,5 +1,5 @@
-import { Header, InputField, Button } from "@/components";
 import { useEffect, useState } from "react";
+import { Header, InputField, Button } from "@/components";
 
 export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
@@ -85,7 +85,6 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
     }
 
     setErrors(newErrors);
-    // console.log(newErrors);
 
     if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
       localStorage.setItem("my-form", JSON.stringify(form));
@@ -133,7 +132,7 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
           variant="initial"
           name="Continue 1/3 >"
           onClick={goToNextStep}
-        ></Button>
+        />
       </div>
     </div>
   );

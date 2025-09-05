@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Header, InputField, Button } from "@/components";
+import { Header, InputField, Button, ImageInput } from "@/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState("");
-  // console.log(preview, "prev");
 
   useEffect(() => {
     const newErrors = {};
@@ -37,7 +36,6 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
     const file = event.target.files[0];
     const filePreview = URL.createObjectURL(file);
     setPreview(filePreview);
-    console.log(preview);
   }
 
   function goToNextStep() {
@@ -80,14 +78,13 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
             }
             error={errors.dateOfBirth}
           />
-          <InputField
-            variant="basicImg"
+          <ImageInput
             title="Profile image"
             type="file"
             onChange={handleImgChange}
             multiple
-            error={errors.preview}
             preview={preview}
+            error={errors.preview}
           />
         </div>
         <div className="flex gap-2">

@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-  Header,
-  Button,
   FirstStepBase,
   SecondStepPass,
   ThirdStepImg,
+  LastStep,
 } from "@/components";
 
 const HomeForm = () => {
@@ -66,14 +65,7 @@ const HomeForm = () => {
   if (step === "lastStep") {
     return (
       <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <div className="w-120 bg-white rounded-lg p-8">
-          <Header />
-          <Button
-            name="< Back"
-            variant="secondary"
-            onClick={() => setStep("thirdStepImg")}
-          />
-        </div>
+        <LastStep onClickChangeStep={setStep} />
       </div>
     );
   }
