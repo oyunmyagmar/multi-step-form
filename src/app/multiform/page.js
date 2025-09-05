@@ -21,7 +21,6 @@ const HomeForm = () => {
     dateOfBirth: "",
     preview: "",
   });
-
   useEffect(() => {
     const localMyForm = localStorage.getItem("my-form");
     if (localMyForm) {
