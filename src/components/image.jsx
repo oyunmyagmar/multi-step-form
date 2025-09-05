@@ -1,23 +1,18 @@
 import { useState } from "react";
 
 import { motion } from "motion/react";
+import { pre } from "motion/react-client";
 
 export function ImageForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState("");
 
   function handleOnChangeImg(event) {
     // alert(1);
     const file = event.target.files[0];
     const filePreview = URL.createObjectURL(file);
     setPreview(filePreview);
-
-    console.log(preview);
   }
-
-  // function handleOnClickDelete() {
-  //   setPreview("");
-  // }
 
   function goToNextStep() {
     const newErrors = {};
@@ -30,20 +25,22 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
       newErrors.dateBirth = "Please select a date.";
     }
 
-    if (form.profileImg === "") {
-      newErrors.profileImg = "Image cannot be blank.";
+    if (preview === "") {
+      newErrors.preview = "Image cannot be blank.";
     } else {
-      newErrors.profileImg = null;
+      newErrors.preview = null;
     }
 
     setErrors(newErrors);
 
-    if (!newErrors.dateBirth && !newErrors.profileImg) {
+    if (!newErrors.dateBirth && !newErrors.preview) {
+      // console.log(form, "form");
       localStorage.setItem("my-form", JSON.stringify(form));
 
       onClickChangeStep("completed");
     }
   }
+
   return (
     <motion.div
       initial={{ opacity: 0, right: -50 }}
@@ -108,7 +105,7 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
                     <button
                       className="w-6 h-6 bg-[#202124] text-white text-[7px] p-[2.5px] rounded-full absolute top-4 right-4 z-auto"
                       onClick={(e) => {
-                        setPreview(null);
+                        setPreview("");
                         document.getElementById("imageFile").value = null;
                       }}
                     >
@@ -120,7 +117,8 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
                 )}
                 <input
                   className={
-                    "absolute inset-0 opacity-0 " + `${preview && "inset-30"}`
+                    "absolute inset-0 " + `${preview && "inset-30"}`
+                    // opacity-0
                   }
                   id="imageFile"
                   type="file"
@@ -129,9 +127,9 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
                 ></input>
               </div>
 
-              {errors.profileImg && (
+              {errors.preview && (
                 <div className="text-sm leading-5 text-[#E14942] mt-3">
-                  {errors.profileImg}
+                  {errors.preview}
                 </div>
               )}
             </div>
@@ -160,9 +158,7 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
 
 //  <img src="/btn-left.png" className="w-6 h-6 inline-block mr-1"></img>
 //  <img src="/btn-right.png" className="w-6 h-6 inline-block ml-1"></img>
-
 //  {preview && <img src={preview} />}
-
 // {
 //   preview ? (
 //     <img src={preview} className="h-45 object-cover place-self-center" />

@@ -5,9 +5,8 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   function goToNextStep() {
     const newErrors = {};
-    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-    const userNameRegex = /^(?=.{3,20}$)[a-zA-Z][a-zA-Z0-9._-]*$/;
 
+    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
     if (firstNameRegex.test(form.firstName)) {
       newErrors.firstName = null;
     } else if (form.firstName === "") {
@@ -16,6 +15,7 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.firstName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
+
     if (firstNameRegex.test(form.lastName)) {
       newErrors.lastName = null;
     } else if (form.lastName === "") {
@@ -24,6 +24,8 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.lastName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
+
+    const userNameRegex = /^(?=.{3,20}$)[a-zA-Z][a-zA-Z0-9._-]*$/;
     if (userNameRegex.test(form.userName)) {
       newErrors.userName = null;
     } else if (form.userName === "") {
@@ -34,7 +36,7 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
     }
 
     setErrors(newErrors);
-    console.log(newErrors);
+    // console.log(newErrors);
 
     if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
       localStorage.setItem("my-form", JSON.stringify(form));

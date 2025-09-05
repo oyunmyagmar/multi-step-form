@@ -8,3 +8,4 @@ export * from "./button";
 export * from "./firstStepBase";
 export * from "./secondStepPass";
 export * from "./thirdStepImg";
+export * from "./imageField";

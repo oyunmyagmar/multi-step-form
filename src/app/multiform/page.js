@@ -26,7 +26,7 @@ const HomeForm = () => {
       password: "",
       confirmPass: "",
       dateOfBirth: "",
-      profileImg: "",
+      preview: "",
     }
   );
   if (step === "firstStepBase") {

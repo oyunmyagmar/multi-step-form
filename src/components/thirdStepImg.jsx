@@ -3,7 +3,8 @@ import { Header, InputField, Button } from "@/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState("");
+  console.log(preview, "prev");
 
   function handleImgChange(event) {
     const file = event.target.files[0];
@@ -14,8 +15,8 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
-    const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
+    const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
     if (dateOfBirthRegex.test(form.dateOfBirth)) {
       newErrors.dateOfBirth = null;
     } else if (form.dateOfBirth === "") {
@@ -24,22 +25,16 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
       newErrors.dateOfBirth = "Must be at least 16.";
     }
 
-    // if (preview === "") {
-    //   newErrors.profileImg = "Image cannot be blank.";
-    // } else {
-    //   newErrors.profileImg = null;
-    // }
-
-    if (form.profileImg === "") {
-      newErrors.profileImg = "Image cannot be blank.";
+    if (preview === "") {
+      newErrors.preview = "Image cannot be blank.";
     } else {
-      newErrors.profileImg = null;
+      newErrors.preview = null;
     }
 
     setErrors(newErrors);
 
-    if (!newErrors.dateOfBirth && !newErrors.profileImg) {
-      // localStorage.setItem("my-form", JSON.stringify(form));
+    if (!newErrors.dateOfBirth && !newErrors.preview) {
+      localStorage.setItem("my-form", JSON.stringify(form));
 
       onClickChangeStep("lastStep");
     }
@@ -62,11 +57,9 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
             variant="basicImg"
             title="Profile image"
             type="file"
-            // value={form.profileImg}
-            // value={preview}
             onChange={handleImgChange}
             multiple
-            error={errors.profileImg}
+            error={errors.preview}
             preview={preview}
           />
         </div>

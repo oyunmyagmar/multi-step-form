@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 import {
@@ -12,23 +13,27 @@ import {
 const Home = () => {
   const [step, setStep] = useState("basic"); // password, image, completed
 
-  const localMyForm = localStorage.getItem("my-form");
+  // const localMyForm =
+  //   typeof window !== "undefined" ? localStorage.getItem("my-form") : null;
 
-  const [form, setForm] = useState(
-    localMyForm
-      ? JSON.parse(localMyForm)
-      : {
-          firstName: "",
-          lastName: "",
-          userName: "",
-          email: "",
-          telNumber: "",
-          password: "",
-          confirmPass: "",
-          dateBirth: "",
-          profileImg: "",
-        }
-  );
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    telNumber: "",
+    password: "",
+    confirmPass: "",
+    dateBirth: "",
+    preview: "",
+  });
+
+  useEffect(() => {
+    const localMyForm = localStorage.getItem("my-form");
+    if (localMyForm) {
+      setForm(JSON.parse(localMyForm));
+    }
+  }, []);
 
   if (step === "basic") {
     return (
@@ -81,14 +86,3 @@ const Home = () => {
   }
 };
 export default Home;
-
-// const [name, setName] = useState("");
-// const onChangeInput = (event) => {
-//   setName(event.target.value);
-//   console.log(name);
-// };
-
-// const onClickContinue = () => {
-//   console.log(firstName, lastName, userName);
-//   setData(...firstName, lastName, userName);
-// };

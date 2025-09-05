@@ -5,11 +5,8 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   function goToNextStep() {
     const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const telNumberRegex = /^(?:[89]\d{7}|1\d{7})$/;
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(form.email)) {
       newErrors.email = null;
     } else if (form.email === "") {
@@ -17,6 +14,8 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
     } else {
       newErrors.email = "Enter a valid email address.";
     }
+
+    const telNumberRegex = /^(?:[89]\d{7}|1\d{7})$/;
     if (telNumberRegex.test(form.telNumber)) {
       newErrors.telNumber = null;
     } else if (form.telNumber === "") {
@@ -25,6 +24,9 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       newErrors.telNumber =
         "Enter a valid phone number (8 digits, NO country code, spaces).";
     }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
     if (passwordRegex.test(form.password)) {
       newErrors.password = null;
     } else if (form.password === "") {
@@ -33,6 +35,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       newErrors.password =
         "Contain at least 1 uppercase, 1 lowercase letter, 1 number, 1 special character in (!@#$%^&*).";
     }
+
     if (
       passwordRegex.test(form.confirmPass) &&
       form.confirmPass == form.password
@@ -51,7 +54,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       !newErrors.password &&
       !newErrors.confirmPass
     ) {
-      // localStorage.setItem("my-form", JSON.stringify(form));
+      localStorage.setItem("my-form", JSON.stringify(form));
 
       onClickChangeStep("thirdStepImg");
     }

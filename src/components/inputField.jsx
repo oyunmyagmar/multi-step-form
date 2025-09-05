@@ -30,7 +30,6 @@ export function InputField({
             //  opacity-0"
             variant={variant}
             type={type}
-            // value={value}
             onChange={onChange}
             multiple={multiple}
           ></input>

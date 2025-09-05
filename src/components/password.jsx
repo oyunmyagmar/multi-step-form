@@ -1,17 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { motion } from "motion/react";
 
 export function PasswordForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
 
-  function goToNextStep() {
+  useEffect(() => {
     const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const telNumberRegex = /^[789][0-9]{7}$/;
+    if (telNumberRegex.test(form.telNumber)) {
+      newErrors.telNumber = null;
+    } else if (form.telNumber === "") {
+      newErrors.telNumber = "This field is required.";
+    } else {
+      newErrors.telNumber =
+        "Enter a valid phone number (8 digits, NO country code, NO leading zero, NO spaces).";
+    }
+    setErrors(newErrors);
+  }, [form.telNumber]);
+
+  useEffect(() => {
+    const newErrors = {};
+
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
+    if (passwordRegex.test(form.password)) {
+      newErrors.password = null;
+    } else if (form.password === "") {
+      newErrors.password = "Create a password at least 6 characters long.";
+    } else {
+      newErrors.password =
+        "Password must include at least 1 CAPITAL letter, 1 lowercase letter, 1 number, 1 special character in (!@#$%^&*).";
+    }
+
+    setErrors(newErrors);
+  }, [form.password]);
+
+  function goToNextStep() {
+    const newErrors = {};
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(form.email)) {
       newErrors.email = null;
     } else if (form.email === "") {
@@ -19,8 +49,8 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
     } else {
       newErrors.email = "Enter a valid email address.";
     }
-    // console.log(newErrors.email, "emailerror");
 
+    const telNumberRegex = /^[789][0-9]{7}$/;
     if (telNumberRegex.test(form.telNumber)) {
       newErrors.telNumber = null;
     } else if (form.telNumber === "") {
@@ -30,6 +60,8 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
         "Enter a valid phone number (8 digits, NO country code, NO leading zero, NO spaces).";
     }
 
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (passwordRegex.test(form.password)) {
       newErrors.password = null;
     } else if (form.password === "") {
@@ -63,6 +95,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
       onClickChangeStep("image");
     }
   }
+
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <div className="flex flex-col gap-7">
@@ -82,6 +115,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
               <p className="text-sm leading-4 font-semibold text-slate-700 mb-2">
                 Email <span className="text-[#E14942]">*</span>
               </p>
+
               <input
                 className={`w-full h-11 text-base leading-5 placeholder-[#8B8E95] focus:text-[#121316] border focus:outline-[#0CA5E9] rounded-lg p-3 + ${
                   errors.email
@@ -98,6 +132,7 @@ export function PasswordForm({ form, onChange, onClickChangeStep }) {
                   })
                 }
               ></input>
+
               {errors.email && (
                 <div className="text-sm leading-5 text-[#E14942] mt-2">
                   {errors.email}
