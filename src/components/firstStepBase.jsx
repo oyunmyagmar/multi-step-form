@@ -3,19 +3,19 @@ import { Header, InputField, Button } from "@/components";
 
 export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
-  // const [charCounter, setCharCounter] = useState();
+  const [charCounter, setCharCounter] = useState();
 
-  //function counter() {}
-  //const counterFirstName = form.firstName.split("").length;
-  const counterUserName = form.userName.split("").length;
-
-  console.log(counterUserName, "counterUserName counter");
+  useEffect(() => {
+    const counterUserName = form.userName.split("").length;
+    setCharCounter(1 + counterUserName);
+    // console.log(counterUserName, "counterusername");
+    // console.log(charCounter, "charcount");
+  }, [form.userName]);
 
   useEffect(() => {
     const newErrors = {};
-
-    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-    if (firstNameRegex.test(form.firstName)) {
+    const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    if (nameRegex.test(form.firstName)) {
       newErrors.firstName = null;
     } else if (form.firstName === "") {
       newErrors.firstName = "This field is required.";
@@ -23,15 +23,13 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.firstName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
-
     setErrors({ ...errors, ...newErrors });
   }, [form.firstName]);
 
   useEffect(() => {
     const newErrors = {};
-
-    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-    if (firstNameRegex.test(form.lastName)) {
+    const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    if (nameRegex.test(form.lastName)) {
       newErrors.lastName = null;
     } else if (form.lastName === "") {
       newErrors.lastName = "This field is required.";
@@ -39,16 +37,15 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.lastName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
-
     setErrors({ ...errors, ...newErrors });
   }, [form.lastName]);
 
   useEffect(() => {
     const newErrors = {};
     const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
-    if (counterUserName === 0) {
-      newErrors.userName = "";
-    } else {
+    // console.log(charCounter, "CHARCOUNT");
+    // console.log(form.userName, "FORMUSENAME");
+    if (charCounter > 0) {
       if (userNameRegex.test(form.userName)) {
         newErrors.userName = null;
       } else if (form.userName === "") {
@@ -58,15 +55,14 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
           "Start with a letter, length 3–20, only letters, numbers, dot, underscore, and hyphen allowed.";
       }
     }
-
     setErrors({ ...errors, ...newErrors });
   }, [form.userName]);
 
   function goToNextStep() {
     const newErrors = {};
 
-    const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-    if (firstNameRegex.test(form.firstName)) {
+    const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    if (nameRegex.test(form.firstName)) {
       newErrors.firstName = null;
     } else if (form.firstName === "") {
       newErrors.firstName = "This field is required.";
@@ -75,7 +71,7 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
 
-    if (firstNameRegex.test(form.lastName)) {
+    if (nameRegex.test(form.lastName)) {
       newErrors.lastName = null;
     } else if (form.lastName === "") {
       newErrors.lastName = "This field is required.";
@@ -83,11 +79,9 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.lastName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
-    console.log(form.userName.value, "username form");
+
     const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
-    if (counterUserName === 0) {
-      newErrors.userName = "";
-    } else {
+    if (charCounter > 0) {
       if (userNameRegex.test(form.userName)) {
         newErrors.userName = null;
       } else if (form.userName === "") {
@@ -151,90 +145,3 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
     </div>
   );
 }
-
-// useEffect(() => {
-//   const newErrors = {};
-
-//   const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-//   if (firstNameRegex.test(form.firstName)) {
-//     newErrors.firstName = null;
-//   } else if (form.firstName === "") {
-//     newErrors.firstName = "This field is required.";
-//   } else {
-//     newErrors.firstName =
-//       "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
-//   }
-
-//   setErrors({ ...errors, ...newErrors });
-// }, [form.firstName]);
-
-// useEffect(() => {
-//   const newErrors = {};
-
-//   const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-//   if (firstNameRegex.test(form.lastName)) {
-//     newErrors.lastName = null;
-//   } else if (form.lastName === "") {
-//     newErrors.lastName = "This field is required.";
-//   } else {
-//     newErrors.lastName =
-//       "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
-//   }
-
-//   setErrors({ ...errors, ...newErrors });
-// }, [form.lastName]);
-
-// useEffect(() => {
-//   const newErrors = {};
-//   const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
-//   if (userNameRegex.test(form.userName)) {
-//     newErrors.userName = null;
-//   } else if (form.userName.length === 0) {
-//     newErrors.userName = "This field is required.";
-//   } else {
-//     newErrors.userName =
-//       "Start with a letter, length 3–20, only letters, numbers, dot, underscore, and hyphen allowed.";
-//   }
-
-//   setErrors({ ...errors, ...newErrors });
-// }, [form.userName]);
-
-// function goToNextStep() {
-//   const newErrors = {};
-
-//   const firstNameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
-//   if (firstNameRegex.test(form.firstName)) {
-//     newErrors.firstName = null;
-//   } else if (form.firstName === "") {
-//     newErrors.firstName = "This field is required.";
-//   } else {
-//     newErrors.firstName =
-//       "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
-//   }
-
-//   if (firstNameRegex.test(form.lastName)) {
-//     newErrors.lastName = null;
-//   } else if (form.lastName === "") {
-//     newErrors.lastName = "This field is required.";
-//   } else {
-//     newErrors.lastName =
-//       "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
-//   }
-
-//   const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
-//   if (userNameRegex.test(form.userName)) {
-//     newErrors.userName = null;
-//   } else if (form.userName === "") {
-//     newErrors.userName = "This field is required.";
-//   } else {
-//     newErrors.userName =
-//       "Start with a letter, length 3–20, only letters, numbers, dot, underscore, and hyphen allowed.";
-//   }
-
-//   setErrors(newErrors);
-
-//   if (!newErrors.firstName && !newErrors.lastName && !newErrors.userName) {
-//     localStorage.setItem("my-form", JSON.stringify(form));
-
-//     onClickChangeStep("secondStepPass");
-//   }

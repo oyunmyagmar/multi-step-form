@@ -1,20 +1,14 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
-
 import {
-  BasicForm,
-  PasswordForm,
-  ImageForm,
-  CompletedForm,
+  FirstStepBase,
+  SecondStepPass,
+  ThirdStepImg,
+  LastStep,
 } from "@/components";
 
-const Home = () => {
-  const [step, setStep] = useState("basic"); // password, image, completed
-
-  // const localMyForm =
-  //   typeof window !== "undefined" ? localStorage.getItem("my-form") : null;
+const HomeForm = () => {
+  const [step, setStep] = useState("firstStepBase"); // secondStepPass, thirdStepImg, lastStep
 
   const [form, setForm] = useState({
     firstName: "",
@@ -24,10 +18,9 @@ const Home = () => {
     telNumber: "",
     password: "",
     confirmPass: "",
-    dateBirth: "",
+    dateOfBirth: "",
     preview: "",
   });
-
   useEffect(() => {
     const localMyForm = localStorage.getItem("my-form");
     if (localMyForm) {
@@ -35,54 +28,45 @@ const Home = () => {
     }
   }, []);
 
-  if (step === "basic") {
+  if (step === "firstStepBase") {
     return (
       <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <BasicForm form={form} onChange={setForm} onClickChangeStep={setStep} />
+        <FirstStepBase
+          form={form}
+          onChangeForm={setForm}
+          onClickChangeStep={setStep}
+        />
       </div>
     );
   }
-
-  if (step === "password") {
+  if (step === "secondStepPass") {
     return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center ">
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, right: -50 }}
-          animate={{ opacity: 1, right: 0 }}
-          exit={{ opacity: 1, right: 50 }}
-        >
-          <PasswordForm
-            form={form}
-            onChange={setForm}
-            onClickChangeStep={setStep}
-          />
-        </motion.div>
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
+        <SecondStepPass
+          form={form}
+          onChangeForm={setForm}
+          onClickChangeStep={setStep}
+        />
       </div>
     );
   }
-
-  if (step === "image") {
+  if (step === "thirdStepImg") {
     return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center ">
-        <ImageForm form={form} onChange={setForm} onClickChangeStep={setStep} />
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
+        <ThirdStepImg
+          form={form}
+          onChangeForm={setForm}
+          onClickChangeStep={setStep}
+        />
       </div>
     );
   }
-
-  if (step === "completed") {
+  if (step === "lastStep") {
     return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center ">
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, right: -50 }}
-          animate={{ opacity: 1, right: 0 }}
-          exit={{ opacity: 1, right: 50 }}
-        >
-          <CompletedForm />
-        </motion.div>
+      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
+        <LastStep onClickChangeStep={setStep} />
       </div>
     );
   }
 };
-export default Home;
+export default HomeForm;

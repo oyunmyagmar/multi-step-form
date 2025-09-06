@@ -10,7 +10,7 @@ export function LastStep({ onClickChangeStep }) {
           We have received your submission. Thank you!
         </p>
         <button
-          className="absolute right-0 top-0 text-amber-100"
+          className="absolute right-0 top-0 text-amber-50"
           onClick={() => onClickChangeStep("thirdStepImg")}
         >
           Back
