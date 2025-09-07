@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Header, InputField, Button } from "@/components";
+import { motion } from "motion/react";
 
 export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});

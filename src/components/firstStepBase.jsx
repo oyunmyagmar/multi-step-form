@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Header, InputField, Button } from "@/components";
+import { AnimatePresence, motion } from "motion/react";
 
 export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});

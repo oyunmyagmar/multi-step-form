@@ -1,11 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import {
   FirstStepBase,
   SecondStepPass,
   ThirdStepImg,
   LastStep,
 } from "@/components";
+import { AnimatePresence, motion } from "motion/react";
+
+const steps = [
+  { key: "firstStepBase", Component: FirstStepBase },
+  { key: "secondStepPass", Component: SecondStepPass },
+  { key: "thirdStepImg", Component: ThirdStepImg },
+  { key: "lastStep", Component: LastStep },
+];
 
 const HomeForm = () => {
   const [step, setStep] = useState("firstStepBase"); // secondStepPass, thirdStepImg, lastStep
@@ -21,6 +29,7 @@ const HomeForm = () => {
     dateOfBirth: "",
     preview: "",
   });
+
   useEffect(() => {
     const localMyForm = localStorage.getItem("my-form");
     if (localMyForm) {
@@ -28,45 +37,33 @@ const HomeForm = () => {
     }
   }, []);
 
-  if (step === "firstStepBase") {
-    return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <FirstStepBase
-          form={form}
-          onChangeForm={setForm}
-          onClickChangeStep={setStep}
-        />
-      </div>
-    );
-  }
-  if (step === "secondStepPass") {
-    return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <SecondStepPass
-          form={form}
-          onChangeForm={setForm}
-          onClickChangeStep={setStep}
-        />
-      </div>
-    );
-  }
-  if (step === "thirdStepImg") {
-    return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <ThirdStepImg
-          form={form}
-          onChangeForm={setForm}
-          onClickChangeStep={setStep}
-        />
-      </div>
-    );
-  }
-  if (step === "lastStep") {
-    return (
-      <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
-        <LastStep onClickChangeStep={setStep} />
-      </div>
-    );
-  }
+  return (
+    <div className="w-full h-screen bg-[#F4F4F4] flex justify-center items-center">
+      <AnimatePresence mode="wait">
+        {steps.map(({ key, Component }) =>
+          step === key ? (
+            <motion.div
+              key={key}
+              className="relative"
+              initial={{ opacity: 0, right: -100 }}
+              animate={{ opacity: 1, right: 0, transition: { duration: 0.5 } }}
+              exit={{ opacity: 0, right: 100, transition: { duration: 0.5 } }}
+            >
+              {key === "lastStep" ? (
+                <Component onClickChangeStep={setStep} />
+              ) : (
+                <Component
+                  form={form}
+                  onChangeForm={setForm}
+                  onClickChangeStep={setStep}
+                />
+              )}
+            </motion.div>
+          ) : null
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
+
 export default HomeForm;
