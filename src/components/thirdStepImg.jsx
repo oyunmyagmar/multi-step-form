@@ -4,6 +4,18 @@ import { Header, InputField, Button, ImageInput } from "@/components";
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState("");
+  const [charCounter, setCharCounter] = useState();
+
+  function handleImgChange(event) {
+    const file = event.target.files[0];
+    const filePreview = URL.createObjectURL(file);
+    setPreview(filePreview);
+  }
+
+  useEffect(() => {
+    let counterPreviewChar = preview.split("").length;
+    setCharCounter(counterPreviewChar);
+  }, [preview]);
 
   useEffect(() => {
     const newErrors = {};
@@ -12,27 +24,19 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
       newErrors.dateOfBirth = null;
     } else if (form.dateOfBirth === "") {
       newErrors.dateOfBirth = "Please select a date.";
-    } else {
-      newErrors.dateOfBirth = "Must be at least 16.";
     }
     setErrors({ ...errors, ...newErrors });
   }, [form.dateOfBirth]);
 
   useEffect(() => {
     const newErrors = {};
-    if (preview === "") {
-      newErrors.preview = "Image cannot be blank.";
-    } else {
+    if (charCounter > 0) {
       newErrors.preview = null;
+    } else if (preview === "") {
+      newErrors.preview = "Image cannot be blank.";
     }
     setErrors({ ...errors, ...newErrors });
   }, [preview]);
-
-  function handleImgChange(event) {
-    const file = event.target.files[0];
-    const filePreview = URL.createObjectURL(file);
-    setPreview(filePreview);
-  }
 
   function goToNextStep() {
     const newErrors = {};
@@ -42,14 +46,12 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
       newErrors.dateOfBirth = null;
     } else if (form.dateOfBirth === "") {
       newErrors.dateOfBirth = "Please select a date.";
-    } else {
-      newErrors.dateOfBirth = "Must be at least 16.";
     }
 
-    if (preview === "") {
-      newErrors.preview = "Image cannot be blank.";
-    } else {
+    if (charCounter > 0) {
       newErrors.preview = null;
+    } else if (preview === "") {
+      newErrors.preview = "Image cannot be blank.";
     }
 
     setErrors(newErrors);
