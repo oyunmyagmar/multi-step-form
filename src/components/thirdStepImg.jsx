@@ -66,8 +66,8 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <Header />
-      <div className="min-h-[462px] flex flex-col justify-between">
-        <div className="flex flex-col gap-3 pt-7">
+      <div className="min-h-[434px] flex flex-col justify-between">
+        <div className="flex flex-col gap-3">
           <InputField
             title="Date of Birth"
             type="date"

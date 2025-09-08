@@ -1,5 +1,6 @@
 export function Button({ name, variant, onClick }) {
-  let classes = "box-border text-base leading-6 font-medium py-2.5 rounded-lg ";
+  let classes =
+    "box-border text-base leading-6 font-medium py-2.5 rounded-lg mt-auto ";
 
   if (variant === "initial") {
     classes +=
