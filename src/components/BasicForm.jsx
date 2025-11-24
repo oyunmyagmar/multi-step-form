@@ -131,7 +131,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
                     firstName: el.target.value,
                   })
                 }
-              ></input>
+              />
               {errors.firstName && (
                 <div className="text-sm leading-5 text-[#E14942] mt-2">
                   {errors.firstName}
@@ -154,7 +154,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
                     lastName: el.target.value,
                   })
                 }
-              ></input>
+              />
               {errors.lastName && (
                 <div className="text-sm leading-5 text-[#E14942] mt-2">
                   {errors.lastName}
@@ -177,7 +177,7 @@ export function BasicForm({ form, onChange, onClickChangeStep }) {
                     userName: el.target.value,
                   })
                 }
-              ></input>
+              />
               {errors.userName && (
                 <div className="text-sm leading-5 text-[#E14942] mt-2">
                   {errors.userName}

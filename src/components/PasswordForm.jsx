@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { motion } from "motion/react";
-
 export function PasswordForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
 
