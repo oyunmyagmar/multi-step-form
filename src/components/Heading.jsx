@@ -1,4 +1,4 @@
-export function Header() {
+export function Heading() {
   return (
     <div className="flex flex-col gap-2 mb-7">
       <img src="./logo.png" className="w-15 h-15"></img>

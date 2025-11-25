@@ -20,7 +20,7 @@ export function InputField({
         type={type}
         value={value}
         onChange={onChange}
-      ></input>
+      />
       {error && <div className="text-sm leading-5 text-[#E14942]">{error}</div>}
     </div>
   );

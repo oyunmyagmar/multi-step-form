@@ -10,14 +10,14 @@ export function ImageInput({
     <div className="flex flex-col gap-3">
       <h5 className="text-sm leading-4 font-semibold text-[#334155]">
         {title}
-        <span className="text-[#E14942]">*</span>
+        <span className="text-[#E14942]"> *</span>
       </h5>
       <div className="w-full h-45 bg-[#7F7F800D] rounded-md text-sm leading-5 text-[#09090B] font-medium flex justify-center items-center relative overflow-hidden">
         {preview ? (
           <img
             src={preview}
             className="absolute inset-0 w-full h-full object-cover"
-          ></img>
+          />
         ) : (
           "Browse or Drop Image"
         )}
@@ -27,7 +27,7 @@ export function ImageInput({
           type={type}
           onChange={onChange}
           multiple={multiple}
-        ></input>
+        />
       </div>
       {error && <div className="text-sm leading-5 text-[#E14942]">{error}</div>}
     </div>

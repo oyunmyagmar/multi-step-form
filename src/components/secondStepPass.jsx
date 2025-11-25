@@ -1,6 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Header, InputField, Button } from "@/components";
-import { motion } from "motion/react";
+import { InputField, Button, Heading } from "@/components";
 
 export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
@@ -14,6 +15,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
   useEffect(() => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (emailRegex.test(form.email)) {
       newErrors.email = null;
     } else if (form.email === "") {
@@ -21,12 +23,14 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
     } else {
       newErrors.email = "Enter a valid email address.";
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.email]);
 
   useEffect(() => {
     const newErrors = {};
     const telNumberRegex = /^(?:[89]\d{7}|1\d{7})$/;
+
     if (telNumberRegex.test(form.telNumber)) {
       newErrors.telNumber = null;
     } else if (form.telNumber === "") {
@@ -35,6 +39,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       newErrors.telNumber =
         "Enter a valid phone number (8 digits, NO country code, spaces).";
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.telNumber]);
 
@@ -42,6 +47,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
     const newErrors = {};
     const passRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
+
     if (passRegex.test(form.password)) {
       newErrors.password = null;
     } else if (form.password === "") {
@@ -50,6 +56,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       newErrors.password =
         "Contain at least 1 uppercase, 1 lowercase letter, 1 number, 1 special character in (!@#$%^&*).";
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.password]);
 
@@ -57,6 +64,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
     const newErrors = {};
     const passRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
+
     if (charCounter > 0) {
       if (
         passRegex.test(form.confirmPass) &&
@@ -69,6 +77,7 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
         newErrors.confirmPass = "Password does not match. Please try again.";
       }
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.confirmPass]);
 
@@ -131,9 +140,10 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       onClickChangeStep("thirdStepImg");
     }
   }
+
   return (
     <div className="w-120 bg-white rounded-lg p-8">
-      <Header />
+      <Heading />
       <div className="min-h-[434px] flex flex-col justify-between">
         <div className="flex flex-col gap-3">
           <InputField
@@ -175,17 +185,18 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
             error={errors.confirmPass}
           />
         </div>
+
         <div className="flex gap-2 mt-[54px]">
           <Button
             variant="secondary"
             name="< Back"
             onClick={() => onClickChangeStep("firstStepBase")}
-          ></Button>
+          />
           <Button
             variant="primary"
             name="Continue 2/3 >"
             onClick={goToNextStep}
-          ></Button>
+          />
         </div>
       </div>
     </div>

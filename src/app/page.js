@@ -1,5 +1,6 @@
 "use client";
-import { Component, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import {
   FirstStepBase,
   SecondStepPass,

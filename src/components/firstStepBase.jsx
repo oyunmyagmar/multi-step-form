@@ -1,6 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Header, InputField, Button } from "@/components";
-import { AnimatePresence, motion } from "motion/react";
+import { InputField, Button, Heading } from "@/components";
 
 export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
@@ -9,13 +10,12 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   useEffect(() => {
     const counterUserName = form.userName.split("").length;
     setCharCounter(1 + counterUserName);
-    // console.log(counterUserName, "counterusername");
-    // console.log(charCounter, "charcount");
   }, [form.userName]);
 
   useEffect(() => {
     const newErrors = {};
     const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+
     if (nameRegex.test(form.firstName)) {
       newErrors.firstName = null;
     } else if (form.firstName === "") {
@@ -24,12 +24,14 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.firstName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.firstName]);
 
   useEffect(() => {
     const newErrors = {};
     const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+
     if (nameRegex.test(form.lastName)) {
       newErrors.lastName = null;
     } else if (form.lastName === "") {
@@ -38,14 +40,14 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       newErrors.lastName =
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.lastName]);
 
   useEffect(() => {
     const newErrors = {};
     const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
-    // console.log(charCounter, "CHARCOUNT");
-    // console.log(form.userName, "FORMUSENAME");
+
     if (charCounter > 0) {
       if (userNameRegex.test(form.userName)) {
         newErrors.userName = null;
@@ -56,6 +58,7 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
           "Start with a letter, length 3–20, only letters, numbers, dot, underscore, and hyphen allowed.";
       }
     }
+
     setErrors({ ...errors, ...newErrors });
   }, [form.userName]);
 
@@ -101,9 +104,10 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
       onClickChangeStep("secondStepPass");
     }
   }
+
   return (
     <div className="w-120 bg-white rounded-lg p-8">
-      <Header />
+      <Heading />
       <div className="min-h-[434px] flex flex-col justify-between">
         <div className="flex flex-col gap-3">
           <InputField
