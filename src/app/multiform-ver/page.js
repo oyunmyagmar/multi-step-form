@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-
 import {
   BasicForm,
   PasswordForm,
   ImageForm,
   CompletedForm,
-} from "@/components";
+} from "../components/multiform-ver-comp";
 
 const Home = () => {
   const [step, setStep] = useState("basic"); // password, image, completed

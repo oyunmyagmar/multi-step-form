@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { InputField, Button, ImageInput, Heading } from "@/components";
+import { Button, Heading, ImageInput, InputField } from "@/app/components";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState(form.preview);
   const [submitted, setSubmitted] = useState(false);
-
-  console.log({ form });
 
   function handleImgChange(event) {
     const file = event.target.files[0];

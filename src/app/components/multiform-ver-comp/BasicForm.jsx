@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+"use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 export function BasicForm({ form, onChange, onClickChangeStep }) {

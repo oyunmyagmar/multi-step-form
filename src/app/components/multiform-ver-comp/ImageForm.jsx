@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+"use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { pre } from "motion/react-client";
 
 export function ImageForm({ form, onChange, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
@@ -33,7 +33,6 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
   }, [preview]);
 
   function handleOnChangeImg(event) {
-    // alert(1);
     const file = event.target.files[0];
     const filePreview = URL.createObjectURL(file);
     setPreview(filePreview);
@@ -59,7 +58,6 @@ export function ImageForm({ form, onChange, onClickChangeStep }) {
     setErrors(newErrors);
 
     if (!newErrors.dateBirth && !newErrors.preview) {
-      // console.log(form, "form");
       localStorage.setItem("my-form", JSON.stringify(form));
 
       onClickChangeStep("completed");

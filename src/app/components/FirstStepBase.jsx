@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { InputField, Button, Heading } from "@/components";
+import { Button, Heading, InputField } from "@/app/components";
 
 export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
@@ -64,8 +64,9 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
-
     const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
+
     if (nameRegex.test(form.firstName)) {
       newErrors.firstName = null;
     } else if (form.firstName === "") {
@@ -84,7 +85,6 @@ export function FirstStepBase({ form, onChangeForm, onClickChangeStep }) {
         "Only letters and hyphens alowed (NO spaces, numbers, symbols).";
     }
 
-    const userNameRegex = /^[a-zA-Z][a-zA-Z0-9._-]{2,15}$/;
     if (charCounter > 0) {
       if (userNameRegex.test(form.userName)) {
         newErrors.userName = null;

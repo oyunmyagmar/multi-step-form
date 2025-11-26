@@ -1,12 +1,13 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   FirstStepBase,
+  LastStep,
   SecondStepPass,
   ThirdStepImg,
-  LastStep,
-} from "@/components";
-import { AnimatePresence, motion } from "motion/react";
+} from "../components";
 
 const [step, setStep] = useState("firstStepBase"); // secondStepPass, thirdStepImg, lastStep
 

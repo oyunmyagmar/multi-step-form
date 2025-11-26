@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { InputField, Button, Heading } from "@/components";
+import { Button, Heading, InputField } from "@/app/components";
 
 export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
@@ -83,8 +83,11 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
 
   function goToNextStep() {
     const newErrors = {};
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const telNumberRegex = /^(?:[89]\d{7}|1\d{7})$/;
+    const passRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
+
     if (emailRegex.test(form.email)) {
       newErrors.email = null;
     } else if (form.email === "") {
@@ -93,7 +96,6 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
       newErrors.email = "Enter a valid email address.";
     }
 
-    const telNumberRegex = /^(?:[89]\d{7}|1\d{7})$/;
     if (telNumberRegex.test(form.telNumber)) {
       newErrors.telNumber = null;
     } else if (form.telNumber === "") {
@@ -103,8 +105,6 @@ export function SecondStepPass({ form, onChangeForm, onClickChangeStep }) {
         "Enter a valid phone number (8 digits, NO country code, spaces).";
     }
 
-    const passRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&_])[A-Za-z\d@$!%*?#&_]{6,}$/;
     if (passRegex.test(form.password)) {
       newErrors.password = null;
     } else if (form.password === "") {
