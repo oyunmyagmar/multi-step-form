@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Button({ name, variant, onClick }) {
   let classes =
     "box-border text-base leading-6 font-medium py-2.5 rounded-lg mt-auto ";

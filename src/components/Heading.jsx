@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Heading() {
   return (
     <div className="flex flex-col gap-2 mb-7">

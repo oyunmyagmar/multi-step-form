@@ -1,3 +1,5 @@
+import React from "react";
+
 export function ImageInput({
   title,
   type,
@@ -22,8 +24,7 @@ export function ImageInput({
           "Browse or Drop Image"
         )}
         <input
-          className="absolute inset-0 "
-          // opacity-0"
+          className="absolute inset-0 opacity-0"
           type={type}
           onChange={onChange}
           multiple={multiple}

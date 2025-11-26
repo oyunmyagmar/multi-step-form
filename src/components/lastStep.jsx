@@ -1,3 +1,5 @@
+import React from "react";
+
 export function LastStep({ onClickChangeStep }) {
   return (
     <div className="w-120 bg-white rounded-lg p-8">

@@ -1,74 +1,100 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { InputField, Button, ImageInput, Heading } from "@/components";
-import { Vibur } from "next/font/google";
 
 export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState(form.preview);
-  const [charCounter, setCharCounter] = useState();
+  const [submitted, setSubmitted] = useState(false);
+
+  console.log({ form });
 
   function handleImgChange(event) {
     const file = event.target.files[0];
-    const filePreview = URL.createObjectURL(file);
-    setPreview(filePreview);
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      setPreview(base64);
+      onChangeForm({ ...form, preview: base64 });
+    };
+
+    reader.readAsDataURL(file);
   }
 
   useEffect(() => {
-    let counterPreviewChar = preview.split("").length;
-    setCharCounter(counterPreviewChar);
-  }, [preview]);
+    if (!submitted) return;
 
-  useEffect(() => {
-    const newErrors = {};
-    const today = new Date();
-    const birthday = new Date(form.dateOfBirth);
-    const age = today.getFullYear() - birthday.getFullYear();
-    const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-
-    if (dateOfBirthRegex.test(form.dateOfBirth)) {
-      newErrors.dateOfBirth = null;
-    } else if (form.dateOfBirth === "") {
-      newErrors.dateOfBirth = "Please select a date.";
-    } else if (age < 16) {
-      newErrors.dateOfBirth = "You must at least 16 years old.";
-    }
-
-    setErrors({ ...errors, ...newErrors });
-  }, [form.dateOfBirth]);
-
-  useEffect(() => {
-    const newErrors = {};
-    if (charCounter > 0) {
-      newErrors.preview = null;
-    } else if (preview === "") {
-      newErrors.preview = "Image cannot be blank.";
-    }
-    setErrors({ ...errors, ...newErrors });
-  }, [preview]);
-
-  function goToNextStep() {
     const newErrors = {};
 
-    const dateOfBirthRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-
-    if (dateOfBirthRegex.test(form.dateOfBirth)) {
-      newErrors.dateOfBirth = null;
-    } else if (form.dateOfBirth === "") {
+    if (!form.dateOfBirth) {
       newErrors.dateOfBirth = "Please select a date.";
     } else {
-      const today = new Date();
-      const birthday = new Date(form.dateOfBirth);
-      const age = today.getFullYear() - birthday.getFullYear();
+      const todayDate = new Date();
+      const birthDate = new Date(form.dateOfBirth);
+      let age = todayDate.getFullYear() - birthDate.getFullYear();
+      const monthDiff = todayDate.getMonth() - birthDate.getMonth();
+      const dayDiff = todayDate.getDate() - birthDate.getDate();
+
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+      }
+
       if (age < 16) {
         newErrors.dateOfBirth = "You must at least 16 years old.";
+      } else {
+        newErrors.dateOfBirth = null;
       }
     }
 
-    // if (charCounter > 0) {
-    //   newErrors.preview = null;
-    // } else if (preview === "") {
-    //   newErrors.preview = "Image cannot be blank.";
-    // }
+    setErrors((errors) => ({ ...errors, ...newErrors }));
+  }, [form.dateOfBirth]);
+
+  useEffect(() => {
+    if (!submitted) return;
+
+    const newErrors = {};
+
+    if (!preview) {
+      newErrors.preview = "Image cannot be blank.";
+    } else {
+      newErrors.preview = null;
+    }
+
+    setErrors((errors) => ({ ...errors, ...newErrors }));
+  }, [preview, submitted]);
+
+  function goToNextStep() {
+    setSubmitted(true);
+    const newErrors = {};
+
+    if (!form.dateOfBirth) {
+      newErrors.dateOfBirth = "Please select a date.";
+    } else {
+      const todayDate = new Date();
+      const birthDate = new Date(form.dateOfBirth);
+      let age = todayDate.getFullYear() - birthDate.getFullYear();
+      const monthDiff = todayDate.getMonth() - birthDate.getMonth();
+      const dayDiff = todayDate.getDate() - birthDate.getDate();
+
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+      }
+
+      if (age < 16) {
+        newErrors.dateOfBirth = "You must at least 16 years old.";
+      } else {
+        newErrors.dateOfBirth = null;
+      }
+    }
+
+    if (!preview) {
+      newErrors.preview = "Image cannot be blank.";
+    } else {
+      newErrors.preview = null;
+    }
 
     setErrors(newErrors);
 
@@ -78,6 +104,7 @@ export function ThirdStepImg({ form, onChangeForm, onClickChangeStep }) {
       onClickChangeStep("lastStep");
     }
   }
+
   return (
     <div className="w-120 bg-white rounded-lg p-8">
       <Heading />
