@@ -1,7 +1,7 @@
-export * from "./multiformcomp/BasicForm";
-export * from "./multiformcomp/PasswordForm";
-export * from "./multiformcomp/ImageForm";
-export * from "./multiformcomp/CompletedForm";
+export * from "./multiform-ver-comp/BasicForm";
+export * from "./multiform-ver-comp/CompletedForm";
+export * from "./multiform-ver-comp/ImageForm";
+export * from "./multiform-ver-comp/PasswordForm";
 
 export * from "./FirstStepBase";
 export * from "./Heading";
