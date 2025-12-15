@@ -39,7 +39,7 @@ const HomeForm = () => {
   }, []);
 
   return (
-    <div className="w-full h-full bg-[#F4F4F4] flex justify-center p-10">
+    <div className="w-full h-full bg-[#F4F4F4] flex justify-center p-10 mt-50">
       <AnimatePresence mode="wait">
         {steps.map(({ key, Component }) =>
           step === key ? (
